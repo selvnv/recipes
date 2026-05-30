@@ -294,6 +294,43 @@
             letter-spacing: 1px;
         }
 
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 28px 0 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .recipe-note img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .recipe-note strong {
+            color: var(--accent-light);
+        }
+
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
         /* ----- СОВЕТЫ ----- */
         .tips {
             background: var(--tag-bg);
@@ -360,6 +397,10 @@
             .tips {
                 border-left-color: #000;
                 background: #f9f9f9;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
             }
         }
     </style>

@@ -261,6 +261,42 @@
             font-size: 12px;
         }
 
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 28px 0 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .recipe-note img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+        }
+
+        .recipe-note strong {
+            color: var(--accent);
+        }
+
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
         /* ----- СОВЕТЫ ----- */
         .tips {
             background: #fafdfa;
@@ -279,14 +315,6 @@
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 1px;
-        }
-
-        .tip-image {
-            width: 100%;
-            max-width: 200px;
-            border-radius: var(--radius-sm);
-            margin-top: 10px;
-            border: 1px solid var(--border);
         }
 
         /* ----- ПЕЧАТЬ ----- */
@@ -314,6 +342,10 @@
             .meta-chip {
                 background: #eee;
                 border: 1px solid #ccc;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
             }
         }
     </style>
@@ -410,7 +442,7 @@
             <div class="tips">
                 <div class="tip-title">💡 На заметку</div>
                 Можно использовать <strong>готовую смесь специй для рыбы</strong> (1 ст. л.) — это быстрее и даёт сбалансированный вкус.<br>
-                <img class="tip-image" src="spices.png" alt="Специи для рыбы" /><br><br>
+                <img class="note-image" src="spices.png" alt="Специи для рыбы" /><br><br>
                 Можно жарить рыбу во фритюре (когда масло покрывает кусочки рыбы полностью) — это даёт более равномерное и хрустящее покрытие, а также сокращает время приготовления. Однако это требует использовать больше масла.<br><br>
                 Для максимально хрустящего кляра используйте ледяную газированную воду — пузырьки делают тесто воздушным.<br><br>
                 Проверить готовность масла просто: бросьте каплю кляра — если сразу всплывает и шипит, можно жарить.<br><br>

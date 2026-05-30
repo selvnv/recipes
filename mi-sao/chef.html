@@ -314,12 +314,41 @@
             display: block;
         }
 
-        .tip-photo {
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
             width: 100%;
             max-width: 200px;
-            margin-top: 14px;
             border-radius: var(--radius-sm);
+            margin-top: 12px;
             border: 1px solid var(--border);
+        }
+
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: #1a1a1a;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 28px 0 0 0;
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-light);
+        }
+
+        .recipe-note img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .recipe-note strong {
+            color: var(--accent-light);
         }
 
         /* ----- ПЕЧАТЬ ----- */
@@ -368,6 +397,17 @@
             .tips {
                 border-left-color: #000;
                 background: #f9f9f9;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
+                color: #555;
+            }
+            .recipe-note strong {
+                color: #000;
+            }
+            .recipe-note img {
+                border-color: #ccc;
             }
         }
     </style>
@@ -488,7 +528,7 @@
                 <span class="tip-label">Шеф-повар рекомендует</span>
                 Ключевой ингредиент этого блюда — именно <strong>яичная лапша</strong>: она отлично впитывает соус, не разваривается и держит упругую текстуру. Не заменяйте её обычной пшеничной лапшой — результат будет совсем другим.<br><br>
                 Я использую яичную лапшу «Ролтон»<br>
-                <img class="tip-photo" src="rolton.jpg" alt="Яичная лапша Ролтон" /><br><br>
+                <img class="note-image" src="rolton.jpg" alt="Яичная лапша Ролтон" /><br><br>
                 Филе бедер можно заменить на любое другое мясо, по вкусу
             </div>
 

@@ -269,30 +269,32 @@
             color: var(--text);
         }
 
-        .pasta-note {
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
             display: flex;
             gap: 20px;
             align-items: flex-start;
-            background: var(--tag-bg);
+            background: #1a1a1a;
             border: 1px solid var(--border);
             border-radius: var(--radius);
             padding: 20px 24px;
             margin: 28px 0 0 0;
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.7;
             color: var(--text-light);
         }
 
-        .pasta-note img {
+        .recipe-note img {
             width: 80px;
             height: 80px;
             object-fit: cover;
             border-radius: var(--radius);
             flex-shrink: 0;
+            border: 1px solid var(--border);
         }
 
-        .pasta-note strong {
-            color: var(--accent);
+        .recipe-note strong {
+            color: var(--accent-light);
         }
 
         .tips {
@@ -360,6 +362,17 @@
                 border-left-color: #000;
                 background: #f9f9f9;
             }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
+                color: #555;
+            }
+            .recipe-note strong {
+                color: #000;
+            }
+            .recipe-note img {
+                border-color: #ccc;
+            }
         }
     </style>
 </head>
@@ -420,7 +433,7 @@
                 </ul>
             </div>
 
-            <div class="pasta-note">
+            <div class="recipe-note">
                 <img src="tomatoes.jpg" alt="Очищенные томаты в собственном соку" />
                 <span><strong>Очищенные томаты в собственном соку</strong> — лучший выбор для этого рецепта. Они содержат достаточно влаги, а также, как правило, уже содержат соль, сахар и уксус в своём составе, благодаря чему не нужно дополнительно балансировать вкус.</span>
             </div>

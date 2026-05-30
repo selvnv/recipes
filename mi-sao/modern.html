@@ -266,12 +266,40 @@
             letter-spacing: 1px;
         }
 
-        .tip-photo {
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
             width: 100%;
             max-width: 200px;
             margin-top: 12px;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
+        }
+
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 28px 0 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .recipe-note img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+        }
+
+        .recipe-note strong {
+            color: var(--accent);
         }
 
         /* ----- ПЕЧАТЬ ----- */
@@ -299,6 +327,10 @@
             .meta-chip {
                 background: #eee;
                 border: 1px solid #ccc;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
             }
         }
     </style>
@@ -401,7 +433,7 @@
                 <div class="tip-title">💡 На заметку</div>
                 Ключевой ингредиент этого блюда — именно <strong>яичная лапша</strong>: она отлично впитывает соус, не разваривается и держит упругую текстуру. Не заменяйте её обычной пшеничной лапшой — результат будет совсем другим.<br><br>
                 Я использую яичную лапшу «Ролтон»<br>
-                <img class="tip-photo" src="rolton.jpg" alt="Яичная лапша Ролтон" /><br><br>
+                <img class="note-image" src="rolton.jpg" alt="Яичная лапша Ролтон" /><br><br>
                 Филе бедер можно заменить на любое другое мясо, по вкусу
             </div>
 

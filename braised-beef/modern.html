@@ -246,8 +246,8 @@
             font-size: 12px;
         }
 
-        /* ----- ПОЯСНЕНИЕ (ТОМАТЫ) ----- */
-        .pasta-note {
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
             display: flex;
             gap: 20px;
             align-items: flex-start;
@@ -261,7 +261,7 @@
             color: var(--text-light);
         }
 
-        .pasta-note img {
+        .recipe-note img {
             width: 80px;
             height: 80px;
             object-fit: cover;
@@ -269,8 +269,17 @@
             flex-shrink: 0;
         }
 
-        .pasta-note strong {
+        .recipe-note strong {
             color: var(--accent);
+        }
+
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            border: 1px solid var(--border);
         }
 
         /* ----- СОВЕТЫ ----- */
@@ -293,6 +302,7 @@
             letter-spacing: 1px;
         }
 
+        /* ----- ПЕЧАТЬ ----- */
         /* ----- ПЕЧАТЬ ----- */
         @media print {
             body {
@@ -318,6 +328,10 @@
             .meta-chip {
                 background: #eee;
                 border: 1px solid #ccc;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
             }
         }
     </style>
@@ -372,7 +386,7 @@
             </div>
 
             <!-- ПОЯСНЕНИЕ: КАКИЕ ТОМАТЫ ИСПОЛЬЗОВАТЬ -->
-            <div class="pasta-note">
+            <div class="recipe-note">
                 <img src="tomatoes.jpg" alt="Очищенные томаты в собственном соку" />
                 <span><strong>Очищенные томаты в собственном соку</strong> — лучший выбор для этого рецепта. Они содержат достаточно влаги, поэтому воды для тушения потребуется меньше. Кроме того, такие томаты, как правило, уже содержат соль, сахар и уксус в своём составе, благодаря чему не нужно дополнительно балансировать вкус.</span>
             </div>

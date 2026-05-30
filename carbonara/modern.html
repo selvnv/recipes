@@ -246,8 +246,8 @@
             font-size: 12px;
         }
 
-        /* ----- ПОЯСНЕНИЕ (ТАЛЬЯТЕЛЛЕ) ----- */
-        .pasta-note {
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
             display: flex;
             gap: 20px;
             align-items: flex-start;
@@ -261,7 +261,7 @@
             color: var(--text-light);
         }
 
-        .pasta-note img {
+        .recipe-note img {
             width: 80px;
             height: 80px;
             object-fit: cover;
@@ -269,8 +269,17 @@
             flex-shrink: 0;
         }
 
-        .pasta-note strong {
+        .recipe-note strong {
             color: var(--accent);
+        }
+
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            border: 1px solid var(--border);
         }
 
         /* ----- СОВЕТЫ ----- */
@@ -293,6 +302,7 @@
             letter-spacing: 1px;
         }
 
+        /* ----- ПЕЧАТЬ ----- */
         /* ----- ПЕЧАТЬ ----- */
         @media print {
             body {
@@ -318,6 +328,10 @@
             .meta-chip {
                 background: #eee;
                 border: 1px solid #ccc;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
             }
         }
     </style>
@@ -364,7 +378,7 @@
             </div>
 
             <!-- ПОЯСНЕНИЕ: ЧТО ТАКОЕ ТАЛЬЯТЕЛЛЕ -->
-            <div class="pasta-note">
+            <div class="recipe-note">
                 <img src="pasta.png" alt="Тальятелле" />
                 <span><strong>Тальятелле</strong> — плоская итальянская яичная паста, благодаря пористой текстуре отлично удерживает густые сливочные соусы, поэтому идеально подходит для карбонары. Вместо тальятелле можно использовать спагетти.</span>
             </div>

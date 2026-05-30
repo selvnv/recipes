@@ -45,6 +45,7 @@
             overflow: hidden;
         }
 
+        /* ----- ФОТО ----- */
         .recipe-photo {
             width: 100%;
             aspect-ratio: 2 / 1;
@@ -64,6 +65,7 @@
             object-fit: cover;
         }
 
+        /* ----- КОНТЕНТ ----- */
         .content {
             padding: 40px 48px;
         }
@@ -77,6 +79,7 @@
             }
         }
 
+        /* ----- ЗАГОЛОВОК ----- */
         .recipe-title {
             font-family: var(--font-heading);
             font-size: 36px;
@@ -93,6 +96,7 @@
             line-height: 1.5;
         }
 
+        /* ----- МЕТА (чипы-теги) ----- */
         .meta {
             display: flex;
             gap: 12px;
@@ -116,6 +120,7 @@
             font-size: 16px;
         }
 
+        /* ----- ЗАГОЛОВКИ СЕКЦИЙ ----- */
         .section-title {
             font-family: var(--font-heading);
             font-size: 20px;
@@ -136,6 +141,7 @@
             flex-shrink: 0;
         }
 
+        /* ----- ИНГРЕДИЕНТЫ ----- */
         .ingredients {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -188,6 +194,7 @@
             font-size: 14px;
         }
 
+        /* ----- ШАГИ ----- */
         .steps {
             list-style: none;
             counter-reset: step-counter;
@@ -224,32 +231,22 @@
             line-height: 1.7;
         }
 
-        .pasta-note {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            background: var(--tag-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px 24px;
-            margin: 28px 0 0 0;
-            font-size: 14px;
-            line-height: 1.6;
-            color: var(--text-light);
-        }
-
-        .pasta-note img {
-            width: 80px;
-            height: 80px;
+        .step-photo {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 4 / 3;
             object-fit: cover;
-            border-radius: var(--radius);
-            flex-shrink: 0;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 12px;
         }
 
-        .pasta-note strong {
-            color: var(--accent);
-        }
-
+        /* ----- СОВЕТЫ ----- */
         .tips {
             background: #fafdfa;
             border: 1px solid #dcedc8;
@@ -269,6 +266,43 @@
             letter-spacing: 1px;
         }
 
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 28px 0 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .recipe-note img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+        }
+
+        .recipe-note strong {
+            color: var(--accent);
+        }
+
+        /* ----- ПЕЧАТЬ ----- */
         @media print {
             body {
                 background: #fff;
@@ -293,6 +327,10 @@
             .meta-chip {
                 background: #eee;
                 border: 1px solid #ccc;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
             }
         }
     </style>
@@ -340,9 +378,9 @@
                 </ul>
             </div>
 
-            <div class="pasta-note">
+            <div class="recipe-note">
                 <img src="tomatoes.jpg" alt="Очищенные томаты в собственном соку" />
-                <span><strong>Очищенные томаты в собственном соку</strong> — лучший выбор для этого рецепта. Они содержат достаточно влаги, а также, как правило, уже содержат соль, сахар и уксус в своём составе, благодаря чему не нужно дополнительно балансировать вкус.</span>
+                <span><strong>Очищенные томаты в собственном соку</strong> — лучший выбор для этого рецепта. Они содержат достаточно влаги, поэтому воды для тушения потребуется меньше. Кроме того, такие томаты, как правило, уже содержат соль, сахар и уксус в своём составе, благодаря чему не нужно дополнительно балансировать вкус.</span>
             </div>
 
             <h2 class="section-title">Приготовление</h2>

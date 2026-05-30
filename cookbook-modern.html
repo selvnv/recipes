@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сборник рецептов — Modern</title>
+    <style>
+:root {
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --border: #e8e8e8;
+            --text: #2d2d2d;
+            --text-light: #888888;
+            --accent: #4caf50;
+            --accent-dark: #388e3c;
+            --tag-bg: #f0f9f0;
+            --tag-text: #2e7d32;
+            --shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            --font-heading: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --font-body: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --radius: 12px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            padding: 30px 16px;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* ----- ФОТО ----- */
+        .recipe-photo {
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            object-fit: cover;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 14px;
+            font-family: var(--font-body);
+        }
+
+        .recipe-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ----- КОНТЕНТ ----- */
+        .content {
+            padding: 40px 48px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 24px 20px;
+            }
+            .meta {
+                gap: 20px;
+            }
+        }
+
+        /* ----- ЗАГОЛОВОК ----- */
+        .recipe-title {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .recipe-description {
+            color: var(--text-light);
+            font-size: 17px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        /* ----- МЕТА (чипы-теги) ----- */
+        .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .meta-chip .meta-icon {
+            font-size: 16px;
+        }
+
+        /* ----- ЗАГОЛОВКИ СЕКЦИЙ ----- */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 40px 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 22px;
+            background: var(--accent);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ----- ИНГРЕДИЕНТЫ ----- */
+        .ingredients {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 32px;
+        }
+
+        @media (max-width: 600px) {
+            .ingredients {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ingredient-group-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-dark);
+            margin-bottom: 8px;
+            grid-column: 1 / -1;
+            margin-top: 16px;
+        }
+
+        .ingredient-group-title:first-child {
+            margin-top: 0;
+        }
+
+        .ingredient-list {
+            list-style: none;
+            padding: 0;
+            grid-column: 1 / -1;
+        }
+
+        .ingredient-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .ingredient-list li:last-child {
+            border-bottom: none;
+        }
+
+        .ingredient-list li .amount {
+            color: var(--text-light);
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        /* ----- ШАГИ ----- */
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            margin-top: 1px;
+        }
+
+        .step-content {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .step-photo {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 28px 0 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .recipe-note img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+        }
+
+        .recipe-note strong {
+            color: var(--accent);
+        }
+
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
+        /* ----- СОВЕТЫ ----- */
+        .tips {
+            background: #fafdfa;
+            border: 1px solid #dcedc8;
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .tips .tip-title {
+            font-weight: 600;
+            color: var(--accent-dark);
+            margin-bottom: 6px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ----- ПЕЧАТЬ ----- */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+            }
+            .step-number {
+                background: #000;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .section-title::before {
+                background: #000;
+            }
+            .tips {
+                border-color: #ccc;
+            }
+            .meta-chip {
+                background: #eee;
+                border: 1px solid #ccc;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
+            }
+        }
+
+        /* ===== СТИЛИ СБОРНИКА (Modern) ===== */
+        .cookbook-header {
+            text-align: center;
+            padding: 60px 48px 40px;
+            background: linear-gradient(135deg, #fafdfa 0%, #f0f9f0 100%);
+            border-bottom: 1px solid var(--border);
+        }
+        .cookbook-header h1 {
+            font-family: var(--font-heading);
+            font-size: 42px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .cookbook-header p {
+            color: var(--text-light);
+            font-size: 17px;
+        }
+
+        /* Оглавление */
+        .toc {
+            padding: 32px 48px;
+            border-bottom: 1px solid var(--border);
+        }
+        .toc h2 {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            columns: 2;
+            column-gap: 24px;
+        }
+        @media (max-width: 600px) {
+            .toc-list {
+                columns: 1;
+            }
+        }
+        .toc-list li {
+            margin-bottom: 8px;
+            break-inside: avoid;
+        }
+        .toc-list li a {
+            color: var(--accent-dark);
+            text-decoration: none;
+            font-size: 15px;
+            padding: 4px 0;
+            display: inline-block;
+            transition: color 0.2s;
+        }
+        .toc-list li a:hover {
+            color: var(--accent);
+        }
+
+        /* Разделитель между рецептами */
+        .section-divider {
+            height: 40px;
+        }
+        @media print {
+            .section-divider {
+                height: 0;
+                page-break-before: always;
+            }
+        }
+    
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <!-- ШАПКА СБОРНИКА -->
+        <div class="cookbook-header">
+            <h1>Сборник рецептов — Modern</h1>
+            <p>14 рецептов</p>
+        </div>
+
+        <!-- ОГЛАВЛЕНИЕ -->
+        <div class="toc">
+            <h2>Содержание</h2>
+            <ol class="toc-list">
+<li><a href="#recipe-0">Картофель запечённый с сыром и майонезом</a></li>
+<li><a href="#recipe-1">Тушёная говядина</a></li>
+<li><a href="#recipe-2">Паста Карбонара</a></li>
+<li><a href="#recipe-3">Шарлотка</a></li>
+<li><a href="#recipe-4">Куриный суп с овощами</a></li>
+<li><a href="#recipe-5">Жареная рыба в кляре</a></li>
+<li><a href="#recipe-6">Картофельное пюре</a></li>
+<li><a href="#recipe-7">Ми сао</a></li>
+<li><a href="#recipe-8">Лимонные маффины</a></li>
+<li><a href="#recipe-9">Панкейки</a></li>
+<li><a href="#recipe-10">Пицца на слоёном тесте</a></li>
+<li><a href="#recipe-11">Шакшука</a></li>
+<li><a href="#recipe-12">Тирамису</a></li>
+<li><a href="#recipe-13">Вок с рисом</a></li>
+</ol>
+        </div>
+
+        
+        <!-- ====== Картофель запечённый с сыром и майонезом ====== -->
+        <section id="recipe-0" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="baked-potato-cheese/potato.png" alt="Картофель запечённый с сыром и майонезом" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Картофель запечённый с сыром и майонезом</h1>
+            <p class="recipe-description">Нежный картофель, запечённый под фольгой до мягкости, а затем доведённый до румяной сырной корочки. Простое, сытное и уютное блюдо на каждый день.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~1 час
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 3-4 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <ul class="ingredient-list">
+                    <li><span>Картофель (среднего размера)</span><span class="amount">2–3 шт. (~500 г)</span></li>
+                    <li><span>Майонез</span><span class="amount">1–2 ст. л. (по вкусу)</span></li>
+                    <li><span>Чеснок</span><span class="amount">2–3 зубчика</span></li>
+                    <li><span>Паприка молотая</span><span class="amount">⅓ ч. л.</span></li>
+                    <li><span>Перец чили молотый</span><span class="amount">⅓ ч. л.</span></li>
+                    <li><span>Сыр твёрдый (чеддер или аналогичный)</span><span class="amount">~80–100 г</span></li>
+                    <li><span>Соль</span><span class="amount">по вкусу</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Подготовка.</strong> Духовку разогреть до 180 °C. Картофель очистить и нарезать тонкими полукругами.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Маринование.</strong> В миске смешать картофель с майонезом, паприкой, перцем чили и раздавленным чесноком. При необходимости посолить. Тщательно перемешать, чтобы каждый ломтик был покрыт соусом.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Запекание под фольгой.</strong> Выложить картофель ровным слоем в форму для запекания, накрыть фольгой и отправить в разогретую духовку на 35–40 минут.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Сырная корочка.</strong> Достать форму, снять фольгу, посыпать картофель натёртым на крупной тёрке сыром и вернуть в духовку ещё на 15–20 минут до золотистой корочки.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Подача.</strong> Готовый картофель слегка остудить и подавать горячим, посыпав свежей зеленью по желанию.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                Для более насыщенного вкуса можно добавить в майонез 1 ч. л. горчицы.<br><br>
+                Сыр лучше брать с выраженным вкусом (чеддер, гауда, пармезан) — он даст аппетитную корочку и аромат.
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Тушёная говядина ====== -->
+        <section id="recipe-1" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="braised-beef/beef.jpg" alt="Тушёная говядина" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Тушёная говядина</h1>
+            <p class="recipe-description">Нежное мясо, томлённое в томатном соусе с овощами и нотками унаги. Сытное, ароматное блюдо для уютного обеда.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~2–2,5 часа
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 4–5 порций
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Средне
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <div class="ingredient-group-title">Основные</div>
+                <ul class="ingredient-list">
+                    <li><span>Говядина (шея или лопаточная мышца)</span><span class="amount">500 г</span></li>
+                    <li><span>Томаты очищенные, в собственном соку</span><span class="amount">~300 г</span></li>
+                    <li><span>Лук репчатый</span><span class="amount">1 шт.</span></li>
+                    <li><span>Морковь (небольшая)</span><span class="amount">1 шт.</span></li>
+                    <li><span>Болгарский перец</span><span class="amount">½ шт.</span></li>
+                    <li><span>Чеснок</span><span class="amount">3 небольших зубчика</span></li>
+                </ul>
+                <div class="ingredient-group-title">Специи и соусы</div>
+                <ul class="ingredient-list">
+                    <li><span>Соус унаги</span><span class="amount">1½ ст. л.</span></li>
+                    <li><span>Имбирь сушёный</span><span class="amount">1 ч. л.</span></li>
+                    <li><span>Чеснок сушёный</span><span class="amount">1 ч. л.</span></li>
+                    <li><span>Соль</span><span class="amount">½ ч. л.</span></li>
+                    <li><span>Перец чёрный</span><span class="amount">по вкусу</span></li>
+                </ul>
+            </div>
+
+            <!-- ПОЯСНЕНИЕ: КАКИЕ ТОМАТЫ ИСПОЛЬЗОВАТЬ -->
+            <div class="recipe-note">
+                <img src="braised-beef/tomatoes.jpg" alt="Очищенные томаты в собственном соку" />
+                <span><strong>Очищенные томаты в собственном соку</strong> — лучший выбор для этого рецепта. Они содержат достаточно влаги, поэтому воды для тушения потребуется меньше. Кроме того, такие томаты, как правило, уже содержат соль, сахар и уксус в своём составе, благодаря чему не нужно дополнительно балансировать вкус.</span>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        Нарежьте говядину кусочками шириной ~1 см. Смешайте с сушёным имбирём, сушёным чесноком, солью и перцем (соус унаги пока не добавляем). Оставьте мариноваться на 10–20 минут.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        Мелко порубите лук, нарежьте морковь и болгарский перец.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        На сильном огне обжарьте мясо по ~2 минуты до румяной корочки. Жарьте в несколько заходов — если выложить всё мясо сразу, оно даст много сока и будет скорее вариться, чем жариться. Обжаренное мясо откладывайте в отдельную чашку.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        Убавьте огонь до среднего. Выложите на сковороду лук, слегка обжарьте, затем добавьте морковь и болгарский перец. Готовьте, помешивая, до мягкости.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        Добавьте очищенные томаты и раздавите их лопаткой. Влейте 1½ ст. л. соуса унаги. Перемешайте и потушите пару минут.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        Верните обжаренное мясо к овощам. Убавьте огонь до минимума. Добавьте горячей воды, чтобы она едва покрывала мясо. Тушите под крышкой ~1,5–2 часа, периодически помешивая.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">7</span>
+                    <span class="step-content">
+                        Мелко порубите свежий чеснок (или выдавите через пресс), добавьте к мясу и потомите ещё 5 минут.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы</h2>
+            <div class="tips">
+                <p class="tip-title">💡 Полезные советы</p>
+                Для этого рецепта лучше всего подходит говяжья шея или лопаточная часть — в них достаточно соединительной ткани, которая при долгом тушении размягчается и делает мясо нежным.<br><br>
+                Если нет соуса унаги, можно заменить смесью соевого соуса (1 ст. л.) + мёда (½ ст. л.) — получится близкий вкус.<br><br>
+                Блюдо отлично сочетается с картофельным пюре, рисом или просто свежим хлебом.
+            </div>
+
+        </div><!-- .content -->
+    </div><!-- .container -->
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Паста Карбонара ====== -->
+        <section id="recipe-2" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="carbonara/carbonara.jpg" alt="Паста Карбонара" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Паста Карбонара</h1>
+            <p class="recipe-description">Классическое итальянское блюдо — нежная паста с хрустящим беконом в бархатистом сырном соусе. Быстро, сытно и невероятно вкусно.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> 25 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 2 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <ul class="ingredient-list">
+                    <li><span>Бекон</span><span class="amount">½ пачки (~75 г)</span></li>
+                    <li><span>Лапша (спагетти или тальятелле)</span><span class="amount">⅓ пачки (~75–90 г)</span></li>
+                    <li><span>Молоко</span><span class="amount">50 мл</span></li>
+                    <li><span>Сливочное масло</span><span class="amount">~10–20 г</span></li>
+                    <li><span>Твёрдый сыр (пармезан или чеддер)</span><span class="amount">½ пачки (~90–100 г)</span></li>
+                    <li><span>Чеснок (свежий или сушёный)</span><span class="amount">1 ч. л. (по вкусу)</span></li>
+                    <li><span>Чёрный перец свежемолотый</span><span class="amount">½ ч. л. (по вкусу)</span></li>
+                </ul>
+            </div>
+
+            <!-- ПОЯСНЕНИЕ: ЧТО ТАКОЕ ТАЛЬЯТЕЛЛЕ -->
+            <div class="recipe-note">
+                <img src="carbonara/pasta.png" alt="Тальятелле" />
+                <span><strong>Тальятелле</strong> — плоская итальянская яичная паста, благодаря пористой текстуре отлично удерживает густые сливочные соусы, поэтому идеально подходит для карбонары. Вместо тальятелле можно использовать спагетти.</span>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                    <strong>Сварите лапшу.</strong> В кастрюле доведите воду до кипения, отварите лапшу до состояния <em>аль денте</em> (на минуту меньше, чем указано на упаковке) и откиньте на дуршлаг, чтобы слить воду. Лапшу можно сразу вернуть в кастрюлю
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Обжарьте бекон.</strong> Бекон нарежьте небольшими полосками и выложите на хорошо разогретую сковороду. Обжаривайте на среднем огне, периодически помешивая, до появления румяной золотистой корочки.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Приготовьте сырный соус.</strong> К обжаренному бекону влейте молоко, добавьте сливочное масло, чеснок и чёрный перец. Перемешайте. Всыпьте натёртый на мелкой тёрке сыр и, непрерывно помешивая, дождитесь, пока он полностью расплавится и превратится в гладкий сливочный соус.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Соберите блюдо.</strong> В кастрюлю с макаронами переложите соус и аккуратно перемешайте, чтобы каждая нить покрылась соусом
+                    </span>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Шарлотка ====== -->
+        <section id="recipe-3" class="recipe-section">
+            <div class="container">
+
+        <div class="recipe-photo">
+            <img src="charlotte/charlotte.jpg" alt="Шарлотка" />
+        </div>
+
+        <div class="content">
+
+            <h1 class="recipe-title">Шарлотка</h1>
+            <p class="recipe-description">Простой и уютный яблочный пирог — воздушное тесто, сочная фруктовая начинка и хрустящая корочка. Идеальная домашняя выпечка к чаю.</p>
+
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~1 час
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 6–8 порций
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <ul class="ingredient-list">
+                    <li><span>Мука</span><span class="amount">~120 г</span></li>
+                    <li><span>Сахар</span><span class="amount">150 г</span></li>
+                    <li><span>Яйца</span><span class="amount">3 шт.</span></li>
+                    <li><span>Яблоки</span><span class="amount">2–3 шт.</span></li>
+                    <li><span>Разрыхлитель</span><span class="amount">10 г (1 пакетик)</span></li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        Яйца взбейте с сахаром миксером или блендером, чтобы масса стала светлее и немного увеличилась в объёме.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        Муку просейте и смешайте с разрыхлителем.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        Постепенно вмешайте мучную смесь в яичную. Если тесто жидковато, добавьте ещё немного муки.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        Яблоки нарежьте тонкими дольками или кубиками. Выложите в форму.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        Залейте яблоки тестом, разровняйте.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        Выпекайте в разогретой до 180 °C духовке ~40 минут до золотистой корочки. Готовность проверьте деревянной шпажкой — она должна выходить сухой, без следов теста.
+                    </span>
+                </li>
+            </ol>
+
+            <h2 class="section-title">Советы</h2>
+            <div class="tips">
+                <p class="tip-title">💡 Полезные советы</p>
+                Можно смешать 1 ч. л. корицы и 1 ст. л. сахара (~15 г) и посыпать этой смесью яблоки перед заливкой тестом. В таком случае из теста вычтите ~15 г сахара.
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Куриный суп с овощами ====== -->
+        <section id="recipe-4" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="chicken-soup/soup.jpg" alt="Куриный суп с овощами" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Куриный суп с овощами</h1>
+            <p class="recipe-description">Простой и ароматный домашний суп с курицей и овощами — согревающий, лёгкий и очень вкусный. Идеальный обед на каждый день.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~50 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 3–4 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <ul class="ingredient-list">
+                    <li><span>Куриная грудка</span><span class="amount">1 шт. (~300–400 г)</span></li>
+                    <li><span>Картофель</span><span class="amount">2–3 шт. (~300 г)</span></li>
+                    <li><span>Морковь</span><span class="amount">1 шт. (средняя)</span></li>
+                    <li><span>Лук репчатый</span><span class="amount">1 шт. (небольшая)</span></li>
+                    <li><span>Чеснок</span><span class="amount">3–4 зубчика</span></li>
+                    <li><span>Вода</span><span class="amount">1–1,2 л</span></li>
+                    <li><span>Соль</span><span class="amount">1 ч. л. (без горки)</span></li>
+                    <li><span>Лавровый лист</span><span class="amount">2 шт.</span></li>
+                    <li><span>Чёрный перец</span><span class="amount">по вкусу</span></li>
+                    <li><span>Растительное масло</span><span class="amount">для обжарки</span></li>
+                </ul>
+                <div class="ingredient-group-title">Дополнительно (по желанию)</div>
+                <ul class="ingredient-list">
+                    <li><span>Вермишель</span><span class="amount">50 г</span></li>
+                    <li><span>Вода (дополнительно)</span><span class="amount">+200–300 мл</span></li>
+                </ul>
+                <p class="ingredient-note">Если добавляете вермишель, увеличьте количество воды на 200–300 мл — вермишель впитывает жидкость.</p>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Сварите бульон.</strong> Куриную грудку залейте холодной водой в кастрюле, доведите до кипения. Снимите пену, убавьте огонь до среднего и варите 30 минут. Готовую грудку достаньте, нарежьте небольшими кусочками.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Подготовьте овощи.</strong> Картофель очистите и нарежьте кубиками. Лук мелко нарежьте, морковь натрите на крупной тёрке, чеснок пропустите через пресс.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Обжарьте зажарку.</strong> На сковороде с небольшим количеством растительного масла слегка обжарьте лук, морковь и чеснок до мягкости и лёгкого золотистого оттенка (3–4 минуты).
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Соберите суп.</strong> В кипящий бульон закиньте нарезанную курицу, картофель и обжаренные овощи. Если добавляете вермишель — закиньте её на этом же этапе, предварительно увеличив объём воды на 200–300 мл. Варите 10 минут на среднем огне до готовности картофеля.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Приправьте.</strong> Добавьте соль, свежемолотый чёрный перец и лавровый лист. Перемешайте, выключите огонь и дайте настояться под крышкой 5 минут. Перед подачей удалите лавровый лист.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                Чтобы бульон получился прозрачным, не пропустите момент закипания и тщательно снимите пену.<br><br>
+                Для более сытного варианта добавьте вермишель (50 г) вместе с картофелем, увеличив количество воды на 200–300 мл — вермишель впитывает жидкость.<br><br>
+                При подаче посыпьте свежей зеленью (укроп, петрушка) для аромата.
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Жареная рыба в кляре ====== -->
+        <section id="recipe-5" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="fried-fish-batter/fish.jpg" alt="Жареная рыба в кляре" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Жареная рыба в кляре</h1>
+            <p class="recipe-description">Fish & Chips без Chips — хрустящая золотистая корочка и нежное, сочное филе внутри. Простое, но эффектное блюдо, которое готовится за считанные минуты.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~30 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 2–3 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <div class="ingredient-group-title">Основные</div>
+                <ul class="ingredient-list">
+                    <li><span>Филе трески или минтая</span><span class="amount">300–400 г</span></li>
+                    <li><span>Мука пшеничная (для кляра + для обвалки)</span><span class="amount">100 г</span></li>
+                    <li><span>Вода холодная (лучше газированная)</span><span class="amount">200 мл</span></li>
+                    <li><span>Разрыхлитель</span><span class="amount">½ ч. л.</span></li>
+                    <li><span>Базилик сушёный (в кляр)</span><span class="amount">~½ ч. л. (по вкусу)</span></li>
+                    <li><span>Масло растительное</span><span class="amount">для жарки</span></li>
+                </ul>
+                <div class="ingredient-group-title">Специи</div>
+                <ul class="ingredient-list">
+                    <li><span>Специи для рыбы (готовая смесь)</span><span class="amount">1 ст. л.</span></li>
+                </ul>
+                <div class="ingredient-subtitle">— или отдельные специи —</div>
+                <ul class="ingredient-list ingredient-list--alt">
+                    <li><span>Соль</span><span class="amount">⅓ ч. л. (или 1 ст. л. соевого)</span></li>
+                    <li><span>Перец чёрный молотый / чили</span><span class="amount">⅓ ч. л.</span></li>
+                    <li><span>Чеснок сушёный (или луковый порошок)</span><span class="amount">½ ч. л.</span></li>
+                    <li><span>Паприка</span><span class="amount">½ ч. л.</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Подготовка рыбы.</strong> Филе нарежьте полосками шириной ~2–3 см. Обсушите бумажным полотенцем.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Маринование.</strong> В миске смешайте рыбу со специями (соль, перец, чеснок, паприка). Оставьте на 10–15 минут.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Приготовление кляра.</strong> В другой миске смешайте муку, разрыхлитель и базилик. Постепенно влейте холодную воду, размешивая ложкой или венчиком до однородной консистенции — тесто должно получиться гладким, без комочков, по густоте напоминать жидкую сметану.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Жарка.</strong> В сковороде разогрейте растительное масло (слой ~5 мм). Каждый кусочек рыбы слегка обваляйте в муке, затем полностью окуните в кляр. Выкладывайте в горячее масло. Жарьте по 4–5 минут с каждой стороны до золотистой корочки. Готовая рыба внутри должна быть полностью белой и непрозрачной.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Подача.</strong> Выложите рыбу на бумажное полотенце, чтобы убрать излишки масла. Подавайте сразу, пока кляр хрустящий.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                Можно использовать <strong>готовую смесь специй для рыбы</strong> (1 ст. л.) — это быстрее и даёт сбалансированный вкус.<br>
+                <img class="note-image" src="fried-fish-batter/spices.png" alt="Специи для рыбы" /><br><br>
+                Можно жарить рыбу во фритюре (когда масло покрывает кусочки рыбы полностью) — это даёт более равномерное и хрустящее покрытие, а также сокращает время приготовления. Однако это требует использовать больше масла.<br><br>
+                Для максимально хрустящего кляра используйте ледяную газированную воду — пузырьки делают тесто воздушным.<br><br>
+                Проверить готовность масла просто: бросьте каплю кляра — если сразу всплывает и шипит, можно жарить.<br><br>
+                Отлично сочетается с картофелем фри, свежим салатом или долькой лимона.
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Картофельное пюре ====== -->
+        <section id="recipe-6" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="mashed-potatoes/potato.jpeg" alt="Картофельное пюре" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Картофельное пюре</h1>
+            <p class="recipe-description">Нежное, воздушное картофельное пюре — идеальный гарнир к мясу и рыбе. Сливочное масло и тёплое молоко делают его бархатистым и ароматным.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> 35 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 2–3 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <ul class="ingredient-list">
+                    <li><span>Картофель</span><span class="amount">500–600 г</span></li>
+                    <li><span>Молоко</span><span class="amount">100–120 мл</span></li>
+                    <li><span>Сливочное масло</span><span class="amount">50 г</span></li>
+                    <li><span>Соль</span><span class="amount">1/4 ч. л.</span></li>
+                    <li><span>Зелёный лук (по желанию)</span><span class="amount">несколько перьев</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Подготовьте картофель.</strong> Картофель очистите и крупно нарежьте. Переложите в кастрюлю и залейте холодной водой так, чтобы она слегка покрывала картофель.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Сварите картофель.</strong> Поставьте кастрюлю на сильный огонь и доведите до кипения. Когда вода закипит, убавьте огонь до среднего, добавьте соль и варите до мягкости — около 20 минут (картофель должен легко протыкаться вилкой).
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Разомните картофель.</strong> Слейте воду полностью. Разомните картофель толкушкой до однородной текстуры без комочков.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Добавьте масло и молоко.</strong> Молоко и сливочное масло подогрейте вместе (в микроволновке или на плите) до горячего состояния. Порционно вливайте в размятый картофель, непрерывно перемешивая ложкой, пока пюре не станет гладким и воздушным. При необходимости добавьте ещё молока до желаемой консистенции.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Подавайте.</strong> Разложите пюре по тарелкам. По желанию посыпьте мелко нарезанным зелёным луком или другой зеленью.
+                    </span>
+                </li>
+            </ol>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Ми сао ====== -->
+        <section id="recipe-7" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="mi-sao/mi-sao.jpg" alt="Ми сао" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Ми сао</h1>
+            <p class="recipe-description">Жареная яичная лапша с овощами — ароматное блюдо в азиатском стиле с нежным маринованным мясом и овощами. Просто, быстро и невероятно вкусно.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~40 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 4–5 порций
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <p class="ingredient-group-title">Для маринада</p>
+                <ul class="ingredient-list">
+                    <li><span>Соевый соус</span><span class="amount">2 ст. л.</span></li>
+                    <li><span>Мёд</span><span class="amount">1 ст. л.</span></li>
+                    <li><span>Чеснок</span><span class="amount">2–3 зубчика</span></li>
+                </ul>
+                <p class="ingredient-group-title">Основные ингредиенты</p>
+                <ul class="ingredient-list">
+                    <li><span>Яичная лапша</span><span class="amount">120–140 г</span></li>
+                    <li><span>Мясо (куриные бёдрышки)</span><span class="amount">300 г</span></li>
+                    <li><span>Соевый соус</span><span class="amount">2–3 ст. л.</span></li>
+                    <li><span>Растительное масло</span><span class="amount">1–2 ст. л.</span></li>
+                    <li><span>Лук репчатый</span><span class="amount">½ шт.</span></li>
+                    <li><span>Болгарский перец</span><span class="amount">½ шт.</span></li>
+                    <li><span>Морковь</span><span class="amount">½ шт.</span></li>
+                    <li><span>Перец чили (молотый)</span><span class="amount">½ ч. л.</span></li>
+                    <li><span>Паприка</span><span class="amount">1 ч. л.</span></li>
+                    <li><span>Зелёный лук</span><span class="amount">для подачи</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Маринад (в идеале — заранее).</strong> Мясо нарезать тонкими полосками. Смешать 2 ст. л. соевого соуса, мёд (1 ст. л.) и измельчённый чеснок. Замариновать мясо минимум на 10–15 минут. Можно замариновать, например, курицу и оставить на ночь в холодильнике — так вкус будет ещё насыщеннее.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Подготовка лапши.</strong> Отварить яичную лапшу 1–2 минуты (не до готовности), откинуть на дуршлаг, промыть холодной водой. <em>Совет: поставьте воду для лапши, когда начнёте жарить мясо (шаг 3) — сэкономите время.</em>
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Обжарка мяса.</strong> Разогреть растительное масло в воке или глубокой сковороде на сильном огне. Обжарить мясо ~7 минут до румяной корочки и выпаривания лишней влаги (немного влаги остаться может — не страшно).
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Овощи.</strong> Добавить лук, нарезанный полукольцами, обжарить 1–2 минуты. Добавить мелко нарезанные болгарский перец и морковь, убавить огонь и томить 3–4 минуты, пока овощи не станут мягкими.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Сборка.</strong> Вернуть сильный огонь, добавить лапшу. Добавить перец чили (½ ч. л.), паприку (1 ч. л.) и 2–3 ст. л. соевого соуса. Быстро обжарить 1–2 минуты, постоянно помешивая, чтобы лапша равномерно покрылась соусом и специями.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        <strong>Подача.</strong> Снять с огня, разложить по тарелкам и обильно посыпать свежим зелёным луком. Подавать немедленно, пока горячее.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                Ключевой ингредиент этого блюда — именно <strong>яичная лапша</strong>: она отлично впитывает соус, не разваривается и держит упругую текстуру. Не заменяйте её обычной пшеничной лапшой — результат будет совсем другим.<br><br>
+                Я использую яичную лапшу «Ролтон»<br>
+                <img class="note-image" src="mi-sao/rolton.jpg" alt="Яичная лапша Ролтон" /><br><br>
+                Филе бедер можно заменить на любое другое мясо, по вкусу
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Лимонные маффины ====== -->
+        <section id="recipe-8" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="muffins/muffins.jpg" alt="Лимонные маффины" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Лимонные маффины</h1>
+            <p class="recipe-description">Нежные, воздушные маффины с ярким лимонным ароматом и тонкой цитрусовой ноткой. Простая домашняя выпечка, которая наполнит кухню уютом и теплом.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~45 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 8–10 шт.
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <ul class="ingredient-list">
+                    <li><span>Мука пшеничная</span><span class="amount">220 г</span></li>
+                    <li><span>Разрыхлитель</span><span class="amount">5 г (½ пакетика)</span></li>
+                    <li><span>Соль</span><span class="amount">¼ ч. л.</span></li>
+                    <li><span>Масло сливочное (размягчённое)</span><span class="amount">80 г</span></li>
+                    <li><span>Сахар</span><span class="amount">200 г</span></li>
+                    <li><span>Яйца</span><span class="amount">2 шт.</span></li>
+                    <li><span>Молоко</span><span class="amount">120 мл</span></li>
+                    <li><span>Лимон (цедра + сок)</span><span class="amount">½ шт.</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Подготовка масла.</strong> Масло размягчить (можно недолго прогреть в микроволновке). Смешать масло с сахаром и солью до однородной массы.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Жидкие ингредиенты.</strong> По одному ввести яйца, перемешать. Влить молоко и снова перемешать до объединения.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Лимон.</strong> Натереть цедру целого лимона, добавить к смеси. Выжать сок половины лимона, перемешать.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Сухие ингредиенты.</strong> В отдельной миске просеять муку с разрыхлителем и перемешать.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Соединение.</strong> Аккуратно соединить сухие ингредиенты с жидкими, перемешивая до исчезновения сухих следов муки.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        <strong>Выпечка.</strong> Разложить тесто по формочкам для маффинов. Выпекать в разогретой до 180 °C духовке 25–30 минут до золотистого цвета.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">7</span>
+                    <span class="step-content">
+                        <strong>Подача.</strong> Готовые маффины остудить. По желанию покрыть лимонной глазурью — смешать сахарную пудру с соком лимона в пропорции ~5:1 до желаемой консистенции.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                При добавлении цукатов или других сухих топпингов, которые впитывают влагу, нужно добавить немного больше молока — чтобы маффины не получились сухими.<br><br>
+                При добавлении сладких топпингов (например, цукатов) следует уменьшить количество сахара в тесте.<br><br>
+                Для более насыщенного аромата можно добавить в тесто ½ ч. л. ванильного экстракта.
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Панкейки ====== -->
+        <section id="recipe-9" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="pancakes/pancakes.jpg" alt="Панкейки" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Панкейки</h1>
+            <p class="recipe-description">Пышные, румяные американские панкейки с нежной текстурой. Идеальный завтрак выходного дня — готовятся просто и быстро из продуктов, которые всегда под рукой.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~30 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 2–3 (6–8 шт.)
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <ul class="ingredient-list">
+                    <li><span>Молоко</span><span class="amount">200 мл</span></li>
+                    <li><span>Мука пшеничная</span><span class="amount">200 г</span></li>
+                    <li><span>Яйцо</span><span class="amount">1 шт.</span></li>
+                    <li><span>Разрыхлитель</span><span class="amount">10 г</span></li>
+                    <li><span>Растительное масло</span><span class="amount">25 мл (2 ст. л.)</span></li>
+                    <li><span>Сахар</span><span class="amount">30 г (2 ст. л.)</span></li>
+                    <li><span>Соль</span><span class="amount">5 г (½ ч. л.)</span></li>
+                    <li><span>Ванильный экстракт</span><span class="amount">по желанию</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Жидкая основа.</strong> В миске смешать яйцо, сахар и соль венчиком до однородности — пока сахар полностью не растворится. Добавить молоко и перемешать. Добавить растительное масло и снова перемешать до объединения.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Сухие ингредиенты.</strong> В отдельной ёмкости просеять муку и разрыхлитель, тщательно перемешать.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Замес теста.</strong> Соединить сухие ингредиенты с жидкими, перемешать венчиком до однородного состояния. Долго не мешать — иначе в муке разовьётся клейковина и панкейки получатся «резиновыми». Допустимы небольшие комочки.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Жарка.</strong> Разогреть сковороду на среднем или чуть выше среднего огне. Наливать тесто половником на сухую сковороду (без масла) — оно само растечётся ровным кругом. Когда на поверхности начнут появляться пузырьки, перевернуть панкейк и готовить ещё 2–3 минуты, пока обратная сторона не станет румяной.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                Контроль температуры. Правильный температурный режим — ключ к красивым панкейкам. К моменту появления пузырей верх должен уже слегка схватиться, а низ — равномерно подрумяниться. Если снизу подгорает, а сверху ещё сырое тесто — уменьшите огонь. Если верх совсем жидкий — блинчик при переворачивании растечётся и получится неровным.<br><br>
+                Чтобы панкейки были одинакового размера, наливайте тесто половником строго в центр сковороды — оно растечётся само. Не размазывайте и не поправляйте.<br><br>
+                Подавайте с кленовым сиропом, вареньем, джемом или свежими ягодами.<br><br>
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Пицца на слоёном тесте ====== -->
+        <section id="recipe-10" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="puff-pastry-pizza/pizza.jpg" alt="Пицца на слоёном тесте" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Пицца на слоёном тесте</h1>
+            <p class="recipe-description">Быстрая и хрустящая пицца на слоёном тесте с расплавленным сыром и сочными молочными сосисками из индейки. Идеальный вариант для перекуса или уютного вечера.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~35–40 мин (+ разморозка)
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 2–3 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <div class="ingredient-group-title">Основные</div>
+                <ul class="ingredient-list">
+                    <li><span>Слоёное тесто</span><span class="amount">1 пласт (~250 г)</span></li>
+                    <li><span>Молочные сосиски из индейки</span><span class="amount">2–3 шт.</span></li>
+                    <li><span>Моцарелла</span><span class="amount">~75 г (~½ пачки)</span></li>
+                    <li><span>Пармезан (или другой ароматный сыр)</span><span class="amount">~50–70 г</span></li>
+                </ul>
+                <div class="ingredient-group-title">Соусы и прочее</div>
+                <ul class="ingredient-list">
+                    <li><span>Кетчуп</span><span class="amount">2–3 ст. л.</span></li>
+                    <li><span>Горчица (по желанию)</span><span class="amount">1 ст. л.</span></li>
+                    <li><span>Растительное масло (для пергамента)</span><span class="amount">1 ч. л.</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        Застелите противень пергаментом, слегка смажьте его растительным маслом. Выложите пласт слоёного теста и оставьте при комнатной температуре на 1–2 часа до полной разморозки.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        Разогрейте духовку до 180 °C. Аккуратно раскатайте тесто до толщины примерно 3–4 мм. Сделайте множество проколов вилкой по всей поверхности — чтобы тесто не слишком раздулось при выпекании.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        Поставьте тесто в разогретую духовку и выпекайте ~7 минут — до момента, когда тесто слегка поднимется, но ещё не начнёт румяниться.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        Достаньте основу из духовки. Смажьте кетчупом (и горчицей, если используете). Выложите нарезанные кружочками сосиски. Сверху распределите натёртую моцареллу и посыпьте пармезаном.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        Верните в духовку ещё на 14–15 минут — до золотистой корочки и полного расплавления сыра. Перед подачей дайте немного остыть и нарежьте на порции.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                Лучше использовать <strong>бездрожжевое</strong> слоёное тесто — пицца получится тонкой и особенно хрустящей.<br><br>
+                Проколы вилкой — обязательный этап: без них тесто может неравномерно вздуться и деформироваться.<br><br>
+                Экспериментируйте с начинкой: можно добавить болгарский перец, маслины или заменить сосиски на ветчину.
+            </div>
+
+        </div><!-- .content -->
+    </div><!-- .container -->
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Шакшука ====== -->
+        <section id="recipe-11" class="recipe-section">
+            <div class="container">
+
+        <div class="recipe-photo">
+            <img src="shakshuka/shakshuka.jpg" alt="Шакшука" />
+        </div>
+
+        <div class="content">
+
+            <h1 class="recipe-title">Шакшука</h1>
+            <p class="recipe-description">Яркая овощная яичница родом из Ближнего Востока. Сочные томаты, сладкий перец и пряные специи создают насыщенный соус, в котором бережно припускаются яйца. Идеальный завтрак или лёгкий ужин.</p>
+
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~25–30 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 2–3 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <div class="ingredient-group-title">Основные</div>
+                <ul class="ingredient-list">
+                    <li><span>Яйца</span><span class="amount">3–4 шт.</span></li>
+                    <li><span>Помидоры очищенные, в собственном соку</span><span class="amount">~200 г</span></li>
+                    <li><span>Болгарский перец</span><span class="amount">½ шт.</span></li>
+                    <li><span>Лук репчатый</span><span class="amount">½ шт.</span></li>
+                    <li><span>Чеснок</span><span class="amount">2–3 зубчика</span></li>
+                    <li><span>Зелень (кинза или зелёный лук)</span><span class="amount">по вкусу</span></li>
+                    <li><span>Морковь (опционально)</span><span class="amount">½ шт.</span></li>
+                </ul>
+                <div class="ingredient-group-title">Специи</div>
+                <ul class="ingredient-list">
+                    <li><span>Соль</span><span class="amount">~¼ ч. л.</span></li>
+                    <li><span>Перец чёрный / чили</span><span class="amount">~⅓ ч. л.</span></li>
+                </ul>
+            </div>
+
+            <div class="recipe-note">
+                <img src="shakshuka/tomatoes.jpg" alt="Очищенные томаты в собственном соку" />
+                <span><strong>Очищенные томаты в собственном соку</strong> — лучший выбор для этого рецепта. Они содержат достаточно влаги, поэтому воды для тушения потребуется меньше. Кроме того, такие томаты, как правило, уже содержат соль, сахар и уксус в своём составе, благодаря чему не нужно дополнительно балансировать вкус.</span>
+            </div>
+
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        Нарежьте лук, болгарский перец и морковь тонкими полукольцами или кубиками. Чеснок мелко порубите.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        Разогрейте сковороду с небольшим количеством масла на среднем огне. Обжарьте лук до прозрачности, затем добавьте болгарский перец и морковь. Тушите, помешивая, несколько минут до мягкости.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        Добавьте измельчённый чеснок и обжаривайте ещё минуту, пока не появится выраженный аромат.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        Добавьте очищенные томаты, раздавите их лопаткой. Приправьте солью и перцем. Томите на среднем огне, пока соус не загустеет и лишняя влага не испарится (5–7 минут).
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        Добавьте рубленую зелень (оставив немного для подачи), перемешайте.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        Сделайте в соусе небольшие углубления и аккуратно вбейте в них яйца — по одному в каждое углубление.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">7</span>
+                    <span class="step-content">
+                        Накройте сковороду крышкой и готовьте на медленном огне ~5–7 минут. Белок должен полностью схватиться, а желток — остаться жидким или полужидким.
+                    </span>
+                </li>
+            </ol>
+
+            <h2 class="section-title">Советы</h2>
+            <div class="tips">
+                <p class="tip-title">💡 Полезные советы</p>
+                Если хотите получить вариант, похожий на омлет — взбейте яйца со специями венчиком, а овощи подержите на сковороде подольше, чтобы выпарить больше влаги. Затем залейте взбитые яйца поверх овощей и готовьте под крышкой до полного схватывания.<br><br>
+                Блюдо отлично сочетается со свежим хлебом, питой или чиабаттой — ими удобно макать в соус и желток.
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Тирамису ====== -->
+        <section id="recipe-12" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="tiramisu/tiramisu.jpeg" alt="Тирамису" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Тирамису</h1>
+            <p class="recipe-description">Классический итальянский десерт с нежным сливочным кремом на основе маскарпоне, пропитанным кофе печеньем савоярди и какао. Изысканно, воздушно и не требует выпечки основы.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~45 мин + застывание
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 6–8 порций
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Средне
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <p class="ingredient-group-title">Печенье савоярди</p>
+                <ul class="ingredient-list">
+                    <li><span>Яйца</span><span class="amount">3 шт.</span></li>
+                    <li><span>Сахар</span><span class="amount">100 г</span></li>
+                    <li><span>Мука пшеничная</span><span class="amount">80 г</span></li>
+                    <li><span>Крахмал</span><span class="amount">20 г</span></li>
+                </ul>
+                <p class="ingredient-group-title">Крем</p>
+                <ul class="ingredient-list">
+                    <li><span>Яйца</span><span class="amount">2 шт.</span></li>
+                    <li><span>Сахар</span><span class="amount">60 г</span></li>
+                    <li><span>Маскарпоне (или другой сливочный сыр)</span><span class="amount">250 г</span></li>
+                </ul>
+                <p class="ingredient-group-title">Для сборки</p>
+                <ul class="ingredient-list">
+                    <li><span>Эспрессо (сваренный, охлаждённый)</span><span class="amount">2 порции</span></li>
+                    <li><span>Какао-порошок</span><span class="amount">для посыпки</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Подготовка.</strong> Белки и желтки (3 яйца) разделить — ёмкость для белков должна быть идеально чистой и сухой, иначе не взобьются.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Желтки.</strong> Взбивать желтки с половиной сахара (50 г) до светлого, почти белого оттенка и пышной консистенции.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Белки.</strong> Белки взбить с оставшейся половиной сахара (50 г) до густой устойчивой пены. Готовность проверяется наклоном ёмкости: если белки не стекают — готовы.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Соединение.</strong> Аккуратно соединить белки и желтки, перемешивая лопаткой снизу вверх, чтобы сохранить воздушность.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Тесто.</strong> Муку смешать с крахмалом и просеять в яичную массу, постепенно вмешивая. Замена части муки крахмалом уменьшает долю клейковины — тесто получается воздушным и не «резиновым».
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        <strong>Отсаживание.</strong> Переложить тесто в кондитерский мешок (удобно натянуть его на стакан). Отсадить полоски длиной ~8–10 см на противень, застеленный пергаментом.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">7</span>
+                    <span class="step-content">
+                        <strong>Выпекание.</strong> Выпекать 12–15 минут при 180 °C до лёгкой золотистости. Остудить на решётке.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">8</span>
+                    <span class="step-content">
+                        <strong>Крем — желтки.</strong> Яйца (2 шт.) разделить на белки и желтки. Желтки смешать с сахаром (60 г) и маскарпоне, взбить до однородного гладкого крема.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">9</span>
+                    <span class="step-content">
+                        <strong>Крем — белки.</strong> Белки взбить отдельно до густой пены (аналогично шагу 3). Аккуратно вмешать белки в сырную массу до однородности.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">10</span>
+                    <span class="step-content">
+                        <strong>Сборка.</strong> Сварить 2 порции эспрессо, остудить до комнатной температуры. Быстро обмакнуть каждую печенюшку в кофе с двух сторон (буквально на 2-3 секунды — печенье не должно размякнуть). Выложить слой печенья в форму, сверху — слой крема. Повторить слои.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">11</span>
+                    <span class="step-content">
+                        <strong>Застывание.</strong> Убрать в холодильник на 4–6 часов (лучше на ночь) до полного застывания.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">12</span>
+                    <span class="step-content">
+                        <strong>Подача.</strong> Перед подачей обильно посыпать какао-порошком через ситечко.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                <strong>Готовность белков.</strong> Наклоните ёмкость: если белки не стекают вниз — они взбиты идеально.<br><br>
+                <strong>Кондитерский мешок.</strong> Удобно натянуть на высокий стакан — так проще заполнять тестом.<br><br>
+                <strong>Кофе.</strong> Обмакивайте печенье в кофе максимально быстро — достаточно 2-3х секунд. Размокшее савоярди испортит текстуру десерта.<br><br>
+                <strong>Сыр.</strong> Вместо маскарпоне можно использовать любой качественный сливочный сыр — вкус будет чуть другим, но тоже отличным.<br><br>
+                <strong>Выдержка.</strong> Тирамису становится вкуснее на второй день, когда все слои окончательно пропитаются.
+            </div>
+
+        </div>
+    </div>
+        </section>
+        <div class="section-divider"></div>
+        
+
+        <!-- ====== Вок с рисом ====== -->
+        <section id="recipe-13" class="recipe-section">
+            <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="wok-rice/rice.jpg" alt="Вок с рисом" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Вок с рисом</h1>
+            <p class="recipe-description">Ароматный рис с куриными бёдрышками и овощами в азиатском стиле — быстрое, сытное и сбалансированное блюдо для буднего ужина.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~45 минут
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 3–4 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Средне
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <div class="ingredient-group-title">Основные</div>
+                <ul class="ingredient-list">
+                    <li><span>Куриные бёдрышки (без кости)</span><span class="amount">300–400 г</span></li>
+                    <li><span>Рис пропаренный</span><span class="amount">250 г</span></li>
+                    <li><span>Морковь (небольшая)</span><span class="amount">1 шт.</span></li>
+                    <li><span>Болгарский перец (небольшой)</span><span class="amount">1 шт.</span></li>
+                    <li><span>Лук репчатый</span><span class="amount">½ шт.</span></li>
+                    <li><span>Чеснок</span><span class="amount">3–4 зубчика</span></li>
+                </ul>
+                <div class="ingredient-group-title">Для маринада</div>
+                <ul class="ingredient-list">
+                    <li><span>Соевый соус</span><span class="amount">2 ст. л.</span></li>
+                    <li><span>Мёд</span><span class="amount">1 ст. л.</span></li>
+                </ul>
+                <div class="ingredient-group-title">Заправка для риса</div>
+                <ul class="ingredient-list">
+                    <li><span>Рисовый уксус</span><span class="amount">20–30 мл</span></li>
+                    <li><span>Сахар</span><span class="amount">1 ч. л.</span></li>
+                </ul>
+                <div class="ingredient-group-title">Для жарки</div>
+                <ul class="ingredient-list">
+                    <li><span>Соевый соус</span><span class="amount">50 мл</span></li>
+                    <li><span>Паприка</span><span class="amount">~1 ч. л.</span></li>
+                    <li><span>Чили перец</span><span class="amount">~½ ч. л.</span></li>
+                    <li><span>Растительное масло</span><span class="amount">для жарки</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        Замаринуйте куриные бёдрышки: смешайте 2 ст. л. соевого соуса, 1 ст. л. мёда и измельчённый чеснок (2–3 зубчика). Нарежьте мясо кусочками среднего размера, залейте маринадом и оставьте на 15–20 минут.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        Промойте пропаренный рис и залейте холодной водой — уровень воды должен быть на 1–2 см выше риса. Доведите до кипения, затем уменьшите огонь до минимума и варите под крышкой ~15 минут, пока вода полностью не впитается.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        Приготовьте заправку для риса: смешайте 20–30 мл рисового уксуса с 1 ч. л. сахара. Слегка подогрейте смесь в микроволновке (15–20 секунд), чтобы сахар полностью растворился. Залейте заправкой готовый рис и аккуратно перемешайте.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        Разогрейте растительное масло в воке или глубокой сковороде на сильном огне. Обжаривайте замаринованные куриные бёдрышки ~7 минут до золотистой корочки, периодически помешивая.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        Добавьте мелко нарезанный лук, обжаривайте 2–3 минуты до прозрачности.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        Добавьте мелко нарезанные морковь и болгарский перец. Уменьшите огонь до среднего и тушите 3–5 минут, пока овощи не станут слегка мягкими, но сохранят упругость.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">7</span>
+                    <span class="step-content">
+                        Выложите в сковороду готовый рис, влейте ~50 мл соевого соуса, добавьте ~1 ч. л. паприки и ~½ ч. л. чили перца. Перемешайте и прогрейте всё вместе 2–3 минуты.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <p class="tip-title">💡 На заметку</p>
+                Вместо куриных бёдрышек можно использовать куриное филе, но бёдрышки получаются сочнее.<br><br>
+                Если бедрышки замариновать заранее (например, оставить на ночь), вкус будет более насыщенным.<br><br>
+                Если нет рисового уксуса, можно заменить яблочным уксусом, разбавленным водой 1:1.<br><br>
+                Пропаренный рис лучше держит форму и не разваривается — идеально для вока.
+            </div>
+
+        </div><!-- .content -->
+    </div><!-- .container -->
+        </section>
+        <div class="section-divider"></div>
+        
+
+    </div>
+
+</body>
+</html>
