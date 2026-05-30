@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жареная рыба в кляре — Рецепт</title>
+    <style>
+        :root {
+            --bg: #fdf8f0;
+            --card-bg: #fffef9;
+            --border: #d4b896;
+            --text: #3e2c1c;
+            --text-light: #6b5744;
+            --accent: #a0522d;
+            --accent-light: #c9916b;
+            --tag-bg: #f5ebe0;
+            --shadow: 0 2px 16px rgba(62, 44, 28, 0.08);
+            --font-heading: 'Georgia', 'Times New Roman', serif;
+            --font-body: 'Georgia', 'Times New Roman', serif;
+            --radius: 6px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.7;
+            padding: 40px 20px;
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(160, 82, 45, 0.04) 0%, transparent 70%),
+                radial-gradient(ellipse at 80% 100%, rgba(160, 82, 45, 0.03) 0%, transparent 60%);
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 50px 55px;
+            position: relative;
+        }
+
+        /* Декоративная линия сверху */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 40px;
+            right: 40px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            border-radius: 2px;
+        }
+
+        /* ----- ФОТО ----- */
+        .recipe-photo {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            margin-bottom: 30px;
+            background: var(--tag-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 14px;
+        }
+
+        .recipe-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius);
+        }
+
+        /* ----- ЗАГОЛОВОК ----- */
+        .recipe-title {
+            font-family: var(--font-heading);
+            font-size: 38px;
+            font-weight: normal;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .recipe-description {
+            text-align: center;
+            color: var(--text-light);
+            font-style: italic;
+            margin-bottom: 30px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* ----- МЕТА-ИНФО (время, порции, сложность) ----- */
+        .meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            padding: 18px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 35px;
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .meta-icon {
+            font-size: 24px;
+        }
+
+        .meta-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-light);
+        }
+
+        .meta-value {
+            font-size: 15px;
+            color: var(--text);
+            font-weight: bold;
+        }
+
+        /* ----- ЗАГОЛОВКИ СЕКЦИЙ ----- */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 22px;
+            font-weight: normal;
+            color: var(--accent);
+            margin: 40px 0 18px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        /* ----- ИНГРЕДИЕНТЫ ----- */
+        .ingredients {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 40px;
+        }
+
+        @media (max-width: 600px) {
+            .ingredients {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ingredient-group-title {
+            font-family: var(--font-heading);
+            font-size: 16px;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 8px;
+            grid-column: 1 / -1;
+            margin-top: 10px;
+        }
+
+        .ingredient-group-title:first-child {
+            margin-top: 0;
+        }
+
+        .ingredient-list {
+            list-style: none;
+            padding: 0;
+            grid-column: 1 / -1;
+        }
+
+        .ingredient-list li {
+            padding: 7px 0;
+            border-bottom: 1px dotted var(--border);
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .ingredient-list li .amount {
+            color: var(--text-light);
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        .ingredient-subtitle {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 6px 0 2px;
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        .ingredient-list--alt li {
+            opacity: 0.65;
+            font-size: 14px;
+        }
+
+        /* ----- ШАГИ ----- */
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            display: flex;
+            gap: 18px;
+            margin-bottom: 22px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-family: var(--font-heading);
+            margin-top: 2px;
+        }
+
+        .step-content {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* ----- СОВЕТЫ ----- */
+        .tips {
+            background: var(--tag-bg);
+            border-left: 4px solid var(--accent);
+            padding: 20px 24px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .tips .tip-icon {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .tip-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius);
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
+        /* ----- ПЕЧАТЬ ----- */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                padding: 20px 30px;
+                max-width: 100%;
+            }
+            .container::before {
+                display: none;
+            }
+            .step-number {
+                background: #000;
+                color: #fff;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .tips {
+                border-left-color: #000;
+            }
+            .meta {
+                border-color: #ccc;
+            }
+            .section-title {
+                border-bottom-color: #ccc;
+            }
+            .section-title::after {
+                background: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="fish.jpg" alt="Жареная рыба в кляре" />
+        </div>
+
+        <!-- НАЗВАНИЕ -->
+        <h1 class="recipe-title">Жареная рыба в кляре</h1>
+        <p class="recipe-description">Fish & Chips без Chips — хрустящая золотистая корочка и нежное, сочное филе внутри. Простое, но эффектное блюдо, которое готовится за считанные минуты.</p>
+
+        <!-- МЕТА-ИНФОРМАЦИЯ -->
+        <div class="meta">
+            <div class="meta-item">
+                <span class="meta-icon">⏱️</span>
+                <span class="meta-label">Время</span>
+                <span class="meta-value">~30 минут</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-icon">🍽️</span>
+                <span class="meta-label">Порции</span>
+                <span class="meta-value">2–3</span>
+            </div>
+            <div class="meta-item">
+                <span class="meta-icon">👨‍🍳</span>
+                <span class="meta-label">Сложность</span>
+                <span class="meta-value">Легко</span>
+            </div>
+        </div>
+
+        <!-- ИНГРЕДИЕНТЫ -->
+        <h2 class="section-title">Ингредиенты</h2>
+        <div class="ingredients">
+            <div class="ingredient-group-title">Основные</div>
+            <ul class="ingredient-list">
+                <li><span>Филе трески или минтая</span><span class="amount">300–400 г</span></li>
+                <li><span>Мука пшеничная (для кляра + для обвалки)</span><span class="amount">100 г</span></li>
+                <li><span>Вода холодная (лучше газированная)</span><span class="amount">200 мл</span></li>
+                <li><span>Разрыхлитель</span><span class="amount">½ ч. л.</span></li>
+                <li><span>Базилик сушёный (в кляр)</span><span class="amount">~½ ч. л. (по вкусу)</span></li>
+                <li><span>Масло растительное</span><span class="amount">для жарки</span></li>
+            </ul>
+                <div class="ingredient-group-title">Специи</div>
+                <ul class="ingredient-list">
+                    <li><span>Специи для рыбы (готовая смесь)</span><span class="amount">1 ст. л.</span></li>
+                </ul>
+                <div class="ingredient-subtitle"><span>— или отдельные специи —</span></div>
+                <ul class="ingredient-list ingredient-list--alt">
+                    <li><span>Соль</span><span class="amount">⅓ ч. л. (или 1 ст. л. соевого соуса)</span></li>
+                    <li><span>Перец чёрный молотый / чили</span><span class="amount">⅓ ч. л.</span></li>
+                    <li><span>Чеснок сушёный (или луковый порошок)</span><span class="amount">½ ч. л.</span></li>
+                    <li><span>Паприка</span><span class="amount">½ ч. л.</span></li>
+                </ul>
+        </div>
+
+        <!-- ПРИГОТОВЛЕНИЕ -->
+        <h2 class="section-title">Приготовление</h2>
+        <ol class="steps">
+            <li>
+                <span class="step-number">1</span>
+                <span class="step-content">
+                    <strong>Подготовка рыбы.</strong> Филе нарежьте полосками шириной ~2–3 см. Обсушите бумажным полотенцем.
+                </span>
+            </li>
+            <li>
+                <span class="step-number">2</span>
+                <span class="step-content">
+                    <strong>Маринование.</strong> В миске смешайте рыбу со специями (соль, перец, чеснок, паприка). Оставьте на 10–15 минут.
+                </span>
+            </li>
+            <li>
+                <span class="step-number">3</span>
+                <span class="step-content">
+                    <strong>Приготовление кляра.</strong> В другой миске смешайте муку, разрыхлитель и базилик. Постепенно влейте холодную воду, размешивая ложкой или венчиком до однородной консистенции — тесто должно получиться гладким, без комочков, по густоте напоминать жидкую сметану.
+                </span>
+            </li>
+            <li>
+                <span class="step-number">4</span>
+                <span class="step-content">
+                    <strong>Жарка.</strong> В сковороде разогрейте растительное масло (слой ~5 мм). Каждый кусочек рыбы слегка обваляйте в муке, затем полностью окуните в кляр. Выкладывайте в горячее масло. Жарьте по 4–5 минут с каждой стороны до золотистой корочки. Готовая рыба внутри должна быть полностью белой и непрозрачной.
+                </span>
+            </li>
+            <li>
+                <span class="step-number">5</span>
+                <span class="step-content">
+                    <strong>Подача.</strong> Выложите рыбу на бумажное полотенце, чтобы убрать излишки масла. Подавайте сразу, пока кляр хрустящий.
+                </span>
+            </li>
+        </ol>
+
+        <!-- СОВЕТЫ -->
+        <h2 class="section-title">Советы и примечания</h2>
+        <div class="tips">
+            <span class="tip-icon">💡</span>
+            Можно использовать <strong>готовую смесь специй для рыбы</strong> (1 ст. л.) — это быстрее и даёт сбалансированный вкус.<br>
+            <img class="tip-image" src="spices.png" alt="Специи для рыбы" /><br><br>
+            Для максимально хрустящего кляра используйте ледяную газированную воду — пузырьки делают тесто воздушным.<br><br>
+            Проверить готовность масла просто: бросьте каплю кляра — если сразу всплывает и шипит, можно жарить.<br><br>
+            Отлично сочетается с картофелем фри, свежим салатом или долькой лимона.
+        </div>
+
+    </div>
+</body>
+</html>

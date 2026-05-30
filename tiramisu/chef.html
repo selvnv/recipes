@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тирамису — Рецепт</title>
+    <style>
+        :root {
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+            --border: #333333;
+            --text: #e0e0e0;
+            --text-light: #999999;
+            --accent: #d4a853;
+            --accent-light: #f0d080;
+            --accent-glow: rgba(212, 168, 83, 0.15);
+            --tag-bg: #2a2a2a;
+            --font-heading: 'Georgia', 'Times New Roman', serif;
+            --font-body: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --radius: 12px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(180deg, rgba(212, 168, 83, 0.03) 0%, transparent 60%);
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            padding: 40px 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        /* ----- ФОТО ----- */
+        .recipe-photo {
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            object-fit: cover;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 13px;
+            font-family: var(--font-body);
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .recipe-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ----- КОНТЕНТ ----- */
+        .content {
+            padding: 44px 52px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 28px 20px;
+            }
+            .meta {
+                gap: 24px;
+            }
+        }
+
+        /* ----- ЗАГОЛОВОК ----- */
+        .recipe-title {
+            font-family: var(--font-heading);
+            font-size: 34px;
+            font-weight: normal;
+            color: var(--accent-light);
+            text-align: center;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .recipe-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--accent);
+            margin: 14px auto 0;
+        }
+
+        .recipe-description {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 15px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* ----- МЕТА ----- */
+        .meta {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 38px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meta-icon {
+            font-size: 20px;
+            opacity: 0.8;
+        }
+
+        .meta-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .meta-value {
+            font-size: 15px;
+            color: var(--text);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ----- ЗАГОЛОВКИ СЕКЦИЙ ----- */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: normal;
+            color: var(--accent);
+            margin: 42px 0 20px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            margin-top: 2px;
+        }
+
+        .section-number {
+            color: var(--accent);
+            font-size: 22px;
+            font-family: var(--font-heading);
+        }
+
+        /* ----- ИНГРЕДИЕНТЫ ----- */
+        .ingredients {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 36px;
+        }
+
+        @media (max-width: 600px) {
+            .ingredients {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ingredient-group-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-light);
+            margin-bottom: 12px;
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ingredient-group-title:first-child {
+            margin-top: 0;
+        }
+
+        .ingredient-list {
+            list-style: none;
+            padding: 0;
+            grid-column: 1 / -1;
+        }
+
+        .ingredient-list li {
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .ingredient-list li .amount {
+            color: var(--accent);
+            white-space: nowrap;
+            font-size: 13px;
+            font-family: var(--font-heading);
+        }
+
+        /* ----- ШАГИ ----- */
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            background: var(--accent-glow);
+            margin-top: 1px;
+        }
+
+        .step-content {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .step-photo {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            background: #252525;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ----- СОВЕТЫ ----- */
+        .tips {
+            background: var(--tag-bg);
+            border-left: 2px solid var(--accent);
+            padding: 22px 24px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .tips .tip-label {
+            color: var(--accent);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .tip-photo {
+            width: 100%;
+            max-width: 200px;
+            margin-top: 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+        }
+
+        /* ----- ПЕЧАТЬ ----- */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+                color: #000;
+            }
+            .container {
+                background: #fff;
+                border: none;
+                max-width: 100%;
+                color: #000;
+            }
+            .recipe-title {
+                color: #000;
+            }
+            .recipe-title::after {
+                background: #000;
+            }
+            .recipe-description,
+            .meta-value,
+            .step-content,
+            .tips {
+                color: #333;
+            }
+            .meta-label,
+            .section-title,
+            .ingredient-group-title,
+            .ingredient-list li .amount,
+            .tip-label {
+                color: #555;
+            }
+            .step-number {
+                border-color: #000;
+                color: #000;
+                background: #eee;
+            }
+            .meta {
+                border-color: #ccc;
+            }
+            .section-line {
+                background: #ccc;
+            }
+            .tips {
+                border-left-color: #000;
+                background: #f9f9f9;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="tiramisu.jpeg" alt="Тирамису" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Тирамису</h1>
+            <p class="recipe-description">Классический итальянский десерт с нежным сливочным кремом на основе маскарпоне, пропитанным кофе печеньем савоярди и какао. Изысканно, воздушно и не требует выпечки основы.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Время</span>
+                        <span class="meta-value">~45 мин + застывание</span>
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">🍽️</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Порции</span>
+                        <span class="meta-value">6–8</span>
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">👨‍🍳</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Сложность</span>
+                        <span class="meta-value">Средне</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">
+                <span class="section-number">01</span> Ингредиенты <span class="section-line"></span>
+            </h2>
+            <div class="ingredients">
+                <p class="ingredient-group-title">Печенье савоярди</p>
+                <ul class="ingredient-list">
+                    <li><span>Яйца</span><span class="amount">3 шт.</span></li>
+                    <li><span>Сахар</span><span class="amount">100 г</span></li>
+                    <li><span>Мука пшеничная</span><span class="amount">80 г</span></li>
+                    <li><span>Крахмал</span><span class="amount">20 г</span></li>
+                </ul>
+                <p class="ingredient-group-title">Крем</p>
+                <ul class="ingredient-list">
+                    <li><span>Яйца</span><span class="amount">2 шт.</span></li>
+                    <li><span>Сахар</span><span class="amount">60 г</span></li>
+                    <li><span>Маскарпоне (или другой сливочный сыр)</span><span class="amount">250 г</span></li>
+                </ul>
+                <p class="ingredient-group-title">Для сборки</p>
+                <ul class="ingredient-list">
+                    <li><span>Эспрессо (сваренный, охлаждённый)</span><span class="amount">2 порции</span></li>
+                    <li><span>Какао-порошок</span><span class="amount">для посыпки</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">
+                <span class="section-number">02</span> Приготовление <span class="section-line"></span>
+            </h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Подготовка.</strong> Белки и желтки (3 яйца) разделить — ёмкость для белков должна быть идеально чистой и сухой, иначе не взобьются.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Желтки.</strong> Взбивать желтки с половиной сахара (50 г) до светлого, почти белого оттенка и пышной консистенции.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Белки.</strong> Белки взбить с оставшейся половиной сахара (50 г) до густой устойчивой пены. Готовность проверяется наклоном ёмкости: если белки не стекают — готовы.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Соединение.</strong> Аккуратно соединить белки и желтки, перемешивая лопаткой снизу вверх, чтобы сохранить воздушность.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Тесто.</strong> Муку смешать с крахмалом и просеять в яичную массу, постепенно вмешивая. Замена части муки крахмалом уменьшает долю клейковины — тесто получается воздушным и не «резиновым».
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        <strong>Отсаживание.</strong> Переложить тесто в кондитерский мешок (удобно натянуть его на стакан). Отсадить полоски длиной ~8–10 см на противень, застеленный пергаментом.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">7</span>
+                    <span class="step-content">
+                        <strong>Выпекание.</strong> Выпекать 12–15 минут при 180 °C до лёгкой золотистости. Остудить на решётке.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">8</span>
+                    <span class="step-content">
+                        <strong>Крем — желтки.</strong> Яйца (2 шт.) разделить на белки и желтки. Желтки смешать с сахаром (60 г) и маскарпоне, взбить до однородного гладкого крема.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">9</span>
+                    <span class="step-content">
+                        <strong>Крем — белки.</strong> Белки взбить отдельно до густой пены (аналогично шагу 3). Аккуратно вмешать белки в сырную массу до однородности.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">10</span>
+                    <span class="step-content">
+                        <strong>Сборка.</strong> Сварить 2 порции эспрессо, остудить до комнатной температуры. Быстро обмакнуть каждую печенюшку в кофе с двух сторон (буквально на 2-3 секунды — печенье не должно размякнуть). Выложить слой печенья в форму, сверху — слой крема. Повторить слои.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">11</span>
+                    <span class="step-content">
+                        <strong>Застывание.</strong> Убрать в холодильник на 4–6 часов (лучше на ночь) до полного застывания.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">12</span>
+                    <span class="step-content">
+                        <strong>Подача.</strong> Перед подачей обильно посыпать какао-порошком через ситечко.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">
+                <span class="section-number">03</span> Советы <span class="section-line"></span>
+            </h2>
+            <div class="tips">
+                <span class="tip-label">Шеф-повар рекомендует</span>
+                <strong>Готовность белков.</strong> Наклоните ёмкость: если белки не стекают вниз — они взбиты идеально.<br><br>
+                <strong>Кондитерский мешок.</strong> Удобно натянуть на высокий стакан — так проще заполнять тестом.<br><br>
+                <strong>Кофе.</strong> Обмакивайте печенье в кофе максимально быстро — достаточно 2-3х секунд. Размокшее савоярди испортит текстуру десерта.<br><br>
+                <strong>Сыр.</strong> Вместо маскарпоне можно использовать любой качественный сливочный сыр — вкус будет чуть другим, но тоже отличным.<br><br>
+                <strong>Выдержка.</strong> Тирамису становится вкуснее на второй день, когда все слои окончательно пропитаются.
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
