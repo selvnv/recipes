@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Филе куриное в панировке — Рецепт</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --card-bg: #ffffff;
+            --border: #e8e8e8;
+            --text: #2d2d2d;
+            --text-light: #888888;
+            --accent: #4caf50;
+            --accent-dark: #388e3c;
+            --tag-bg: #f0f9f0;
+            --tag-text: #2e7d32;
+            --shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+            --font-heading: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --font-body: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --radius: 12px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            padding: 30px 16px;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        /* ----- ФОТО ----- */
+        .recipe-photo {
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            object-fit: cover;
+            background: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 14px;
+            font-family: var(--font-body);
+        }
+
+        .recipe-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ----- КОНТЕНТ ----- */
+        .content {
+            padding: 40px 48px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 24px 20px;
+            }
+            .meta {
+                gap: 20px;
+            }
+        }
+
+        /* ----- ЗАГОЛОВОК ----- */
+        .recipe-title {
+            font-family: var(--font-heading);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .recipe-description {
+            color: var(--text-light);
+            font-size: 17px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        /* ----- МЕТА (чипы-теги) ----- */
+        .meta {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .meta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .meta-chip .meta-icon {
+            font-size: 16px;
+        }
+
+        /* ----- ЗАГОЛОВКИ СЕКЦИЙ ----- */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text);
+            margin: 40px 0 16px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 22px;
+            background: var(--accent);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        /* ----- ИНГРЕДИЕНТЫ ----- */
+        .ingredients {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 32px;
+        }
+
+        @media (max-width: 600px) {
+            .ingredients {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ingredient-group-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-dark);
+            margin-bottom: 8px;
+            grid-column: 1 / -1;
+            margin-top: 16px;
+        }
+
+        .ingredient-group-title:first-child {
+            margin-top: 0;
+        }
+
+        .ingredient-list {
+            list-style: none;
+            padding: 0;
+            grid-column: 1 / -1;
+        }
+
+        .ingredient-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .ingredient-list li:last-child {
+            border-bottom: none;
+        }
+
+        .ingredient-list li .amount {
+            color: var(--text-light);
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        /* ----- ШАГИ ----- */
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            font-family: var(--font-heading);
+            margin-top: 1px;
+        }
+
+        .step-content {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        .step-photo {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 28px 0 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .recipe-note img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+        }
+
+        .recipe-note strong {
+            color: var(--accent);
+        }
+
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
+        /* ----- СОВЕТЫ ----- */
+        .tips {
+            background: #fafdfa;
+            border: 1px solid #dcedc8;
+            border-radius: var(--radius-sm);
+            padding: 20px 24px;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text);
+        }
+
+        .tips .tip-title {
+            font-weight: 600;
+            color: var(--accent-dark);
+            margin-bottom: 6px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ----- ПЕЧАТЬ ----- */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+                max-width: 100%;
+            }
+            .step-number {
+                background: #000;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .section-title::before {
+                background: #000;
+            }
+            .tips {
+                border-color: #ccc;
+            }
+            .meta-chip {
+                background: #eee;
+                border: 1px solid #ccc;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="dish.jpg" alt="Филе куриное в панировке" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Филе куриное в панировке</h1>
+            <p class="recipe-description">Сочное куриное филе в хрустящей золотистой панировке. Простое и быстрое блюдо на каждый день.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <span class="meta-chip">
+                    <span class="meta-icon">⏱️</span> ~30 мин (+ маринование)
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">🍽️</span> 3–4 порции
+                </span>
+                <span class="meta-chip">
+                    <span class="meta-icon">👨‍🍳</span> Легко
+                </span>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">Ингредиенты</h2>
+            <div class="ingredients">
+                <div class="ingredient-group-title">Основное</div>
+                <ul class="ingredient-list">
+                    <li><span>Куриное филе</span><span class="amount">400–500 г</span></li>
+                    <li><span>Специи для курицы</span><span class="amount">1 ст. л.</span></li>
+                    <li><span>Соевый соус</span><span class="amount">1 ч. л.</span></li>
+                </ul>
+                <div class="ingredient-group-title">Панировка</div>
+                <ul class="ingredient-list">
+                    <li><span>Мука пшеничная</span><span class="amount">~100 г</span></li>
+                    <li><span>Яйца куриные</span><span class="amount">2 шт.</span></li>
+                    <li><span>Панировочные сухари</span><span class="amount">~150 г</span></li>
+                    <li><span>Масло растительное</span><span class="amount">3–4 ст. л.</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">Приготовление</h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Замаринуйте филе.</strong> Нарезать филе тонкими ломтиками (~1 см толщиной). Посыпать специями, добавить каплю соевого соуса и тщательно перемешать, чтобы каждый кусочек был покрыт. Оставить мариноваться на 15–20 минут.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Подготовьте панировочную станцию.</strong> В три отдельные тарелки насыпать: муку, взбитые до однородности яйца, панировочные сухари.
+                        <div class="recipe-note">
+                            <img src="breadcrumbs.jpg" alt="Панировочные сухари «Трапеза»" />
+                            <span>Лучше всего использовать <strong>панировочные сухари без дополнительных специй</strong> — например, «Трапеза». Всё необходимое уже добавлено при мариновании курицы, поэтому сухари с приправами могут перебить вкус.</span>
+                        </div>
+                        <div class="recipe-note">
+                            <img src="panko.jpg" alt="Панировочные сухари «Панко»" />
+                            <span><strong>Панко</strong> — это японская панировка из хлеба без корки, имеющая более крупную и воздушную текстуру. При обжарке она даёт особенно хрустящую корочку и впитывает меньше масла, чем обычные сухари.</span>
+                        </div>
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Запанируйте филе.</strong> Каждый кусочек обвалять в муке, затем окунуть в яйца, затем обвалять в сухарях.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Обжарьте.</strong> Разогреть сковороду с растительным маслом на среднем огне. Обжарить филе с каждой стороны по 3–5 минут до золотистой корочки. Готовое филе выложить на бумажное полотенце.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">Советы и примечания</h2>
+            <div class="tips">
+                <div class="tip-title">💡 На заметку</div>
+                Для более хрустящей корочки используйте панировку <strong>«Панко»</strong> — она даёт более воздушную текстуру.<br><br>
+                Чтобы проверить готовность, разрежьте самый толстый кусочек: мясо должно быть <strong>белым и непрозрачным</strong> по всей толщине, без розовых участков. Готовое филе также должно <strong>легко протыкаться вилкой</strong>.<br><br>
+                Готовое филе выложите на бумажное полотенце, чтобы убрать лишнее масло.
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

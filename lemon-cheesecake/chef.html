@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Чизкейк лимонный — Рецепт</title>
+    <style>
+        :root {
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+            --border: #333333;
+            --text: #e0e0e0;
+            --text-light: #999999;
+            --accent: #d4a853;
+            --accent-light: #f0d080;
+            --accent-glow: rgba(212, 168, 83, 0.15);
+            --tag-bg: #2a2a2a;
+            --font-heading: 'Georgia', 'Times New Roman', serif;
+            --font-body: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --radius: 12px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(180deg, rgba(212, 168, 83, 0.03) 0%, transparent 60%);
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            padding: 40px 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        /* ----- ФОТО ----- */
+        .recipe-photo {
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            object-fit: cover;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 13px;
+            font-family: var(--font-body);
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .recipe-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ----- КОНТЕНТ ----- */
+        .content {
+            padding: 44px 52px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 28px 20px;
+            }
+            .meta {
+                gap: 24px;
+            }
+        }
+
+        /* ----- ЗАГОЛОВОК ----- */
+        .recipe-title {
+            font-family: var(--font-heading);
+            font-size: 34px;
+            font-weight: normal;
+            color: var(--accent-light);
+            text-align: center;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .recipe-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--accent);
+            margin: 14px auto 0;
+        }
+
+        .recipe-description {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 15px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        /* ----- МЕТА ----- */
+        .meta {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 38px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meta-icon {
+            font-size: 20px;
+            opacity: 0.8;
+        }
+
+        .meta-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .meta-value {
+            font-size: 15px;
+            color: var(--text);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        /* ----- ЗАГОЛОВКИ СЕКЦИЙ ----- */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: normal;
+            color: var(--accent);
+            margin: 42px 0 20px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            margin-top: 2px;
+        }
+
+        .section-number {
+            color: var(--accent);
+            font-size: 22px;
+            font-family: var(--font-heading);
+        }
+
+        /* ----- ИНГРЕДИЕНТЫ ----- */
+        .ingredients {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 36px;
+        }
+
+        @media (max-width: 600px) {
+            .ingredients {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ingredient-group-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-light);
+            margin-bottom: 12px;
+            grid-column: 1 / -1;
+            margin-top: 20px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .ingredient-group-title:first-child {
+            margin-top: 0;
+        }
+
+        .ingredient-list {
+            list-style: none;
+            padding: 0;
+            grid-column: 1 / -1;
+        }
+
+        .ingredient-list li {
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .ingredient-list li .amount {
+            color: var(--accent);
+            white-space: nowrap;
+            font-size: 13px;
+            font-family: var(--font-heading);
+        }
+
+        /* ----- ШАГИ ----- */
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            background: var(--accent-glow);
+            margin-top: 1px;
+        }
+
+        .step-content {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .step-photo {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 4 / 3;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+            margin-top: 12px;
+            background: #252525;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ----- УНИВЕРСАЛЬНАЯ ПОДСКАЗКА С КАРТИНКОЙ ----- */
+        .recipe-note {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            margin: 28px 0 0 0;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-light);
+        }
+
+        .recipe-note img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: var(--radius);
+            flex-shrink: 0;
+            border: 1px solid var(--border);
+        }
+
+        .recipe-note strong {
+            color: var(--accent-light);
+        }
+
+        /* ----- КАРТИНКА В СОВЕТАХ / ПОДСКАЗКАХ ----- */
+        .note-image {
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+            border: 1px solid var(--border);
+        }
+
+        /* ----- СОВЕТЫ ----- */
+        .tips {
+            background: var(--tag-bg);
+            border-left: 2px solid var(--accent);
+            padding: 22px 24px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .tips .tip-label {
+            color: var(--accent);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            display: block;
+            margin-top: 18px;
+        }
+
+        .tips .tip-label:first-child {
+            margin-top: 0;
+        }
+
+        /* ----- ПЕЧАТЬ ----- */
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+                color: #000;
+            }
+            .container {
+                background: #fff;
+                border: none;
+                max-width: 100%;
+                color: #000;
+            }
+            .recipe-title {
+                color: #000;
+            }
+            .recipe-title::after {
+                background: #000;
+            }
+            .recipe-description,
+            .meta-value,
+            .step-content,
+            .tips {
+                color: #333;
+            }
+            .meta-label,
+            .section-title,
+            .ingredient-group-title,
+            .ingredient-list li .amount,
+            .tip-label {
+                color: #555;
+            }
+            .step-number {
+                border-color: #000;
+                color: #000;
+                background: #eee;
+            }
+            .meta {
+                border-color: #ccc;
+            }
+            .section-line {
+                background: #ccc;
+            }
+            .tips {
+                border-left-color: #000;
+                background: #f9f9f9;
+            }
+            .recipe-note {
+                background: #f9f9f9;
+                border-color: #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- ФОТО БЛЮДА -->
+        <div class="recipe-photo">
+            <img src="lemon-cheesecake.jpg" alt="Чизкейк лимонный" />
+        </div>
+
+        <div class="content">
+
+            <!-- НАЗВАНИЕ -->
+            <h1 class="recipe-title">Чизкейк лимонный</h1>
+            <p class="recipe-description">Нежный охлаждённый десерт с яркой лимонной ноткой на песочной основе. Готовится без выпечки, идеален для тёплого времени года.</p>
+
+            <!-- МЕТА -->
+            <div class="meta">
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Время</span>
+                        <span class="meta-value">40 минут + 8 ч</span>
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">🍽️</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Порции</span>
+                        <span class="meta-value">8</span>
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">👨‍🍳</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Сложность</span>
+                        <span class="meta-value">Средне</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ИНГРЕДИЕНТЫ -->
+            <h2 class="section-title">
+                <span class="section-number">01</span> Ингредиенты <span class="section-line"></span>
+            </h2>
+            <div class="ingredients">
+                <div class="ingredient-group-title">Основа</div>
+                <ul class="ingredient-list">
+                    <li><span>Печенье песочное</span><span class="amount">200 г</span></li>
+                    <li><span>Масло сливочное</span><span class="amount">70 г</span></li>
+                </ul>
+                <div class="ingredient-group-title">Начинка</div>
+                <ul class="ingredient-list">
+                    <li><span>Сливочный сыр</span><span class="amount">400 г</span></li>
+                    <li><span>Сахарная пудра</span><span class="amount">2 ст. л. (~30 г)</span></li>
+                    <li><span>Сливки 33%</span><span class="amount">200 г</span></li>
+                    <li><span>Сахар</span><span class="amount">150 г</span></li>
+                    <li><span>Сок лимона</span><span class="amount">½ лимона</span></li>
+                    <li><span>Молоко</span><span class="amount">100 мл</span></li>
+                    <li><span>Желатин</span><span class="amount">10 г</span></li>
+                    <li><span>Вода (для желатина)</span><span class="amount">100 мл</span></li>
+                </ul>
+            </div>
+
+            <!-- ПРИГОТОВЛЕНИЕ -->
+            <h2 class="section-title">
+                <span class="section-number">02</span> Приготовление <span class="section-line"></span>
+            </h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        <strong>Подготовьте основу.</strong> Печенье измельчите в крошку. Сливочное масло растопите (можно в микроволновке) и смешайте с крошкой. Масса должна быть влажной и держать форму — если печенье сухое, добавьте ещё масла. Выложите в форму и утрамбуйте ровным слоем. Уберите в холодильник.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        <strong>Замочите желатин.</strong> В отдельной ёмкости залейте желатин 100 мл холодной воды и оставьте набухать на 10–15 минут. Затем растопите на слабом огне или в микроволновке до полного растворения. Не кипятите.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        <strong>Приготовьте сливочную массу.</strong> В глубокой миске смешайте сливочный сыр с сахарной пудрой до однородности. Добавьте сливки и перемешайте. Затем добавьте сахар, сок половины лимона и молоко. Перемешайте до гладкой консистенции без комочков.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        <strong>Соедините с желатином.</strong> Тонкой струйкой влейте растопленный желатин в сливочную массу, непрерывно помешивая, до полного объединения.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        <strong>Залейте и охладите.</strong> Достаньте форму с основой, вылейте сверху сливочную массу и разровняйте. Уберите в холодильник минимум на 6–8 часов, а лучше на ночь — до полного застывания.
+                    </span>
+                </li>
+            </ol>
+
+            <!-- СОВЕТЫ -->
+            <h2 class="section-title">
+                <span class="section-number">03</span> Советы <span class="section-line"></span>
+            </h2>
+            <div class="tips">
+                <span class="tip-label">Шеф-повар рекомендует</span>
+                <p><strong>Заранее достаньте сыр.</strong> Сливочный сыр лучше вынуть из холодильника за 30–40 минут до приготовления — так он станет мягче и легче смешается в однородную массу без комочков.</p>
+                <span class="tip-label">Альтернативная основа</span>
+                <p>Вместо песочного печенья можно использовать бисквитную основу — например, палочки савоярди (дамы-пальчики). Технология та же: измельчить в крошку и смешать с растопленным сливочным маслом в пропорции 3:1.</p>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
