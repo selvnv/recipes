@@ -24,7 +24,7 @@ jobs:
       - name: Setup SSH private key
         run: |
           mkdir -p ~/.ssh
-          echo ${{ secrets.VPS_SSH_PRIVATE_KEY }} > ~/.ssh/deploy_key
+          echo "${{ secrets.VPS_SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 700 ~/.ssh
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p ${{ secrets.VPS_PORT }} -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
@@ -33,6 +33,7 @@ jobs:
         run: |
           rsync -avz \
             --delete \
+            --include='cookbook-*.html' \
             --exclude='.git' \
             --exclude='.github' \
             --exclude='build_cookbooks.py' \
