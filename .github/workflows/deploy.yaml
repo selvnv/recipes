@@ -1,0 +1,43 @@
+name: Deploy cookbook
+
+on:
+  push:
+    tags:
+      - v*.*.*
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build cookbooks
+        run: |
+          python3 build_cookbooks.py
+
+      - name: Setup SSH private key
+        run: |
+          mkdir -p ~/.ssh
+          echo ${{ secrets.VPS_SSH_PRIVATE_KEY }} > ~/.ssh/deploy_key
+          chmod 700 ~/.ssh
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p ${{ secrets.VPS_PORT }} -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Sync files
+        run: |
+          rsync -avz \
+            --delete \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='build_cookbooks.py' \
+            --exclude='recipe-chef.html' \
+            --exclude='recipe-modern.html' \
+            --exclude='**/*.html' \
+            -e "ssh -p ${{ secrets.VPS_PORT }} -i ~/.ssh/deploy_key" \
+            ./ ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.DEPLOY_CATALOG }}/
