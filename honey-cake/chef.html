@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Медовик — Рецепт</title>
+    <style>
+        :root {
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+            --border: #333333;
+            --text: #e0e0e0;
+            --text-light: #999999;
+            --accent: #d4a853;
+            --accent-light: #f0d080;
+            --accent-glow: rgba(212, 168, 83, 0.15);
+            --tag-bg: #2a2a2a;
+            --font-heading: 'Georgia', 'Times New Roman', serif;
+            --font-body: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --radius: 12px;
+            --radius-sm: 6px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image:
+                linear-gradient(180deg, rgba(212, 168, 83, 0.03) 0%, transparent 60%);
+            color: var(--text);
+            font-family: var(--font-body);
+            line-height: 1.8;
+            padding: 40px 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+        }
+
+        .recipe-photo {
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            object-fit: cover;
+            background: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 13px;
+            font-family: var(--font-body);
+            border-bottom: 1px solid var(--border);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .recipe-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .content {
+            padding: 44px 52px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 28px 20px;
+            }
+            .meta {
+                gap: 24px;
+            }
+        }
+
+        .recipe-title {
+            font-family: var(--font-heading);
+            font-size: 34px;
+            font-weight: normal;
+            color: var(--accent-light);
+            text-align: center;
+            margin-bottom: 6px;
+            letter-spacing: 1px;
+            position: relative;
+        }
+
+        .recipe-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1px;
+            background: var(--accent);
+            margin: 14px auto 0;
+        }
+
+        .recipe-description {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 15px;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .meta {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 38px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .meta-icon {
+            font-size: 20px;
+            opacity: 0.8;
+        }
+
+        .meta-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .meta-value {
+            font-size: 15px;
+            color: var(--text);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: 18px;
+            font-weight: normal;
+            color: var(--accent);
+            margin: 42px 0 20px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .section-line {
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+            margin-top: 2px;
+        }
+
+        .section-number {
+            color: var(--accent);
+            font-size: 22px;
+            font-family: var(--font-heading);
+        }
+
+        .ingredients {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0 36px;
+        }
+
+        @media (max-width: 600px) {
+            .ingredients {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .ingredient-list {
+            list-style: none;
+            padding: 0;
+            grid-column: 1 / -1;
+        }
+
+        .ingredient-list li {
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .ingredient-list li .amount {
+            color: var(--accent);
+            white-space: nowrap;
+            font-size: 13px;
+            font-family: var(--font-heading);
+        }
+
+        .steps {
+            list-style: none;
+            counter-reset: step-counter;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .steps li {
+            counter-increment: step-counter;
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: var(--font-heading);
+            background: var(--accent-glow);
+            margin-top: 1px;
+        }
+
+        .step-content {
+            flex: 1;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .tips {
+            background: var(--tag-bg);
+            border-left: 2px solid var(--accent);
+            padding: 22px 24px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .tips .tip-label {
+            color: var(--accent);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        @media print {
+            body {
+                background: #fff;
+                padding: 0;
+                color: #000;
+            }
+            .container {
+                background: #fff;
+                border: none;
+                max-width: 100%;
+                color: #000;
+            }
+            .recipe-title {
+                color: #000;
+            }
+            .recipe-title::after {
+                background: #000;
+            }
+            .recipe-description,
+            .meta-value,
+            .step-content,
+            .tips {
+                color: #333;
+            }
+            .meta-label,
+            .section-title,
+            .ingredient-list li .amount,
+            .tip-label {
+                color: #555;
+            }
+            .step-number {
+                border-color: #000;
+                color: #000;
+                background: #eee;
+            }
+            .meta {
+                border-color: #ccc;
+            }
+            .section-line {
+                background: #ccc;
+            }
+            .tips {
+                border-left-color: #000;
+                background: #f9f9f9;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="recipe-photo">
+            <img src="medovik.jpg" alt="Медовик" />
+        </div>
+
+        <div class="content">
+
+            <h1 class="recipe-title">Медовик</h1>
+            <p class="recipe-description">Нежный медовый торт с карамельным ароматом, тонкими бисквитными слоями и воздушным сметанным кремом. Классика домашней выпечки, которая требует времени на пропитку, но вознаграждает изумительным вкусом.</p>
+
+            <div class="meta">
+                <div class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Время</span>
+                        <span class="meta-value">~2 ч + ночь</span>
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">🍽️</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Порции</span>
+                        <span class="meta-value">8–10</span>
+                    </div>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-icon">👨‍🍳</span>
+                    <div class="meta-text">
+                        <span class="meta-label">Сложность</span>
+                        <span class="meta-value">Средне</span>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">
+                <span class="section-number">01</span> Ингредиенты <span class="section-line"></span>
+            </h2>
+            <div class="ingredients">
+                <ul class="ingredient-list">
+                    <li><span>Мёд</span><span class="amount">120 г</span></li>
+                    <li><span>Сода</span><span class="amount">1,5 ч. ложки</span></li>
+                    <li><span>Сливочное масло</span><span class="amount">150 г</span></li>
+                    <li><span>Яйца</span><span class="amount">5 шт.</span></li>
+                    <li><span>Мука</span><span class="amount">300 г</span></li>
+                    <li><span>Сахар</span><span class="amount">150 г</span></li>
+                    <li><span>Соль</span><span class="amount">1 ч. ложка</span></li>
+                    <li style="border-top: 1px solid rgba(255,255,255,0.08); margin-top: 4px; padding-top: 13px; font-style: italic;"><span>Сметана 20% (для крема)</span><span class="amount">800 г</span></li>
+                    <li><span>Сахарная пудра (для крема)</span><span class="amount">2 ст. ложки</span></li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">
+                <span class="section-number">02</span> Приготовление <span class="section-line"></span>
+            </h2>
+            <ol class="steps">
+                <li>
+                    <span class="step-number">1</span>
+                    <span class="step-content">
+                        В сотейник или кастрюлю выложите 120 г мёда и поставьте на слабый огонь. Когда мёд растопится и станет жидким, добавьте 1,5 ч. ложки соды и активно перемешивайте — масса начнёт пениться и приобретёт насыщенный жёлто-карамельный цвет. Массу нужно постоянно помешивать, чтобы она не начала подгорать — это может добавить горечь тесту. Если смесь долго не карамелизуется, можно аккуратно увеличить огонь, но не забывайте помешивать.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">2</span>
+                    <span class="step-content">
+                        Добавьте к медово-содовой смеси 150 г сливочного масла и перемешайте до полной однородности. Снимите с огня и дайте немного остыть.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">3</span>
+                    <span class="step-content">
+                        В отдельной миске взбейте 5 яиц со 150 г сахара и 1 ч. ложкой соли до пышной светлой пены. Когда масса увеличится в объёме, всыпьте 300 г муки и перемешайте миксером до однородности.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">4</span>
+                    <span class="step-content">
+                        Тонкой струйкой влейте остывшую медовую массу в яично-мучную смесь, постоянно перемешивая. Замесите тесто до гладкой однородной консистенции.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">5</span>
+                    <span class="step-content">
+                        Распределите тесто тонким слоем на листах пергамента (получится примерно 2 противня). Выпекайте коржи в разогретой до 160 °C духовке около 10 минут — до золотистого цвета.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">6</span>
+                    <span class="step-content">
+                        Пока коржи тёплые, нарежьте их на равные части — это слои будущего торта. Неровные края обрежьте (обрезки сохраните). При необходимости сложите слои друг на друга и подровняйте края, чтобы все коржи были одинакового размера.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">7</span>
+                    <span class="step-content">
+                        Обрезки коржей измельчите блендером в крошку — она понадобится для финальной посыпки.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">8</span>
+                    <span class="step-content">
+                        Пока коржи выпекаются и остывают, приготовьте крем: смешайте 800 г сметаны с 2 ст. ложками сахарной пудры до однородности. Уберите крем в холодильник на время, пока коржи остывают.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">9</span>
+                    <span class="step-content">
+                        На блюдо или в форму выкладывайте коржи слоями, обильно промазывая каждый сметанным кремом.
+                    </span>
+                </li>
+                <li>
+                    <span class="step-number">10</span>
+                    <span class="step-content">
+                        Верх и бока торта также смажьте кремом и щедро посыпьте бисквитной крошкой. Уберите медовик в холодильник на ночь (минимум 6–8 часов) для пропитки.
+                    </span>
+                </li>
+            </ol>
+
+            <h2 class="section-title">
+                <span class="section-number">03</span> Заметки <span class="section-line"></span>
+            </h2>
+            <div class="tips">
+                <span class="tip-label">Совет шефа</span>
+                Коржи удобнее нарезать, пока они тёплые — после остывания они становятся более хрупкими и крошатся.<br><br>
+                При смазывании слоёв кремом может показаться, что крема слишком много, но это не так — частично он пропитает коржи и усядет, так что смело покрывайте коржи кремом.<br><br>
+                Медовик становится вкуснее на второй день — чем дольше стоит в холодильнике, тем лучше пропитывается.
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
