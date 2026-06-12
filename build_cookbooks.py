@@ -83,12 +83,12 @@ def build_cookbook(style, output_path, recipe_dirs):
     if style == "modern":
         template_path = MODERN_STYLE_FILE
         file_suffix = "modern.html"
-        title = "Сборник рецептов — Modern"
+        title = "Сборник рецептов"
         body_class = ""
     else:
         template_path = CHEF_STYLE_FILE
         file_suffix = "chef.html"
-        title = "Сборник рецептов — Chef"
+        title = "Сборник рецептов"
         body_class = ""
 
     if not template_path.exists():
