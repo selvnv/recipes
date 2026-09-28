@@ -31,7 +31,7 @@ jobs:
 
       - name: Sync files
         run: |
-          rsync -avz \
+          rsync -rtvzO \
             --delete \
             --include='cookbook-*.html' \
             --exclude='.git' \
